@@ -2,13 +2,10 @@ package com.glodblock.github.extendedae.util;
 
 import com.glodblock.github.extendedae.xmod.LoadList;
 import com.glodblock.github.glodium.util.GlodClientUtil;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 public class FCClientUtil {
 
@@ -25,8 +22,7 @@ public class FCClientUtil {
             return "";
         }
         var ids = FCUtil.trimSplit(inputText);
-        var set = new HashSet<>();
-        Collections.addAll(set, ids);
+        var set = new ObjectOpenHashSet<>(ids);
         for (String mod : LoadList.MOD_NAME) {
             if (set.contains(mod)) {
                 continue;
