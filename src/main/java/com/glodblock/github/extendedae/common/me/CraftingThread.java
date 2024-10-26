@@ -11,7 +11,6 @@ import appeng.api.stacks.KeyCounter;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.IMolecularAssemblerSupportedPattern;
 import appeng.core.AELog;
-import appeng.crafting.CraftingEvent;
 import appeng.me.helpers.IGridConnectedBlockEntity;
 import appeng.menu.AutoCraftingMenu;
 import appeng.util.inv.AppEngInternalInventory;
@@ -177,8 +176,6 @@ public class CraftingThread {
             this.progress = 0;
             this.output = this.myPlan.assemble(this.craftingInv, this.host.getLevel());
             if (!this.output.isEmpty()) {
-                CraftingEvent.fireAutoCraftingEvent(this.host.getLevel(), this.myPlan, this.output, this.craftingInv);
-
                 // pushOut might reset the plan back to null, so get the remaining items before
                 var craftingRemainders = this.myPlan.getRemainingItems(this.craftingInv);
 
