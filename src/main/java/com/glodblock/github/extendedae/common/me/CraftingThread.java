@@ -8,13 +8,15 @@ import appeng.api.inventories.InternalInventory;
 import appeng.api.networking.ticking.TickRateModulation;
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.KeyCounter;
+import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.crafting.IMolecularAssemblerSupportedPattern;
-import appeng.blockentity.grid.AENetworkInvBlockEntity;
 import appeng.core.AELog;
 import appeng.crafting.CraftingEvent;
+import appeng.me.helpers.IGridConnectedBlockEntity;
 import appeng.menu.AutoCraftingMenu;
 import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.FilteredInternalInventory;
+import appeng.util.inv.InternalInventoryHost;
 import appeng.util.inv.filter.IAEItemFilter;
 import com.glodblock.github.extendedae.ExtendedAE;
 import net.minecraft.core.Direction;
@@ -29,7 +31,8 @@ import org.jetbrains.annotations.Nullable;
 public class CraftingThread {
 
     @NotNull
-    private final AENetworkInvBlockEntity host;
+    private final AEBaseBlockEntity host;
+    private final IGridConnectedBlockEntity girdHost;
     private final AppEngInternalInventory gridInv;
     private final InternalInventory gridInvExt;
     private final CraftingContainer craftingInv;
@@ -41,12 +44,24 @@ public class CraftingThread {
     private boolean forcePlan = false;
     private boolean reboot = true;
     private ItemStack output = ItemStack.EMPTY;
+    private Pusher pusher = this::pushTo;
 
-    public CraftingThread(@NotNull AENetworkInvBlockEntity host) {
+    public CraftingThread(@NotNull AEBaseBlockEntity host) {
+        if (!(host instanceof InternalInventoryHost)) {
+            throw new IllegalArgumentException("Host isn't InternalInventoryHost.");
+        }
+        if (!(host instanceof IGridConnectedBlockEntity)) {
+            throw new IllegalArgumentException("Host isn't IGridConnectedBlockEntity.");
+        }
         this.host = host;
-        this.gridInv = new AppEngInternalInventory(this.host, 10, 1);
+        this.girdHost = (IGridConnectedBlockEntity) host;
+        this.gridInv = new AppEngInternalInventory((InternalInventoryHost) this.host, 10, 1);
         this.gridInvExt = new FilteredInternalInventory(this.gridInv, new CraftingGridFilter());
         this.craftingInv = new TransientCraftingContainer(new AutoCraftingMenu(), 3, 3);
+    }
+
+    public void setPusher(Pusher pusher) {
+        this.pusher = pusher;
     }
 
     public boolean isAwake() {
@@ -66,6 +81,14 @@ public class CraftingThread {
             }
         }
         return false;
+    }
+
+    public void stop() {
+        this.myPlan = null;
+        this.myPattern = ItemStack.EMPTY;
+        this.progress = 0;
+        this.ejectHeldItems();
+        this.updateSleepiness();
     }
 
     public CompoundTag writeNBT() {
@@ -224,7 +247,7 @@ public class CraftingThread {
     }
 
     private int userPower(int ticksPassed, int bonusValue, double acceleratorTax) {
-        var grid = this.host.getMainNode().getGrid();
+        var grid = this.girdHost.getMainNode().getGrid();
         if (grid != null) {
             var safePower = Math.min(ticksPassed * bonusValue * acceleratorTax, 5000);
             return (int) (grid.getEnergyService().extractAEPower(safePower, Actionable.MODULATE, PowerMultiplier.CONFIG) / acceleratorTax);
@@ -250,10 +273,10 @@ public class CraftingThread {
     private void pushOut(ItemStack output) {
         if (this.pushDirection == null) {
             for (Direction d : Direction.values()) {
-                output = this.pushTo(output, d);
+                output = this.pusher.push(output, d);
             }
         } else {
-            output = this.pushTo(output, this.pushDirection);
+            output = this.pusher.push(output, this.pushDirection);
         }
         if (output.isEmpty() && this.forcePlan) {
             this.forcePlan = false;
@@ -303,7 +326,7 @@ public class CraftingThread {
         final boolean wasEnabled = this.isAwake;
         this.isAwake = this.myPlan != null && this.hasMats() || this.canPush();
         if (wasEnabled != this.isAwake) {
-            this.host.getMainNode().ifPresent((grid, node) -> {
+            this.girdHost.getMainNode().ifPresent((grid, node) -> {
                 if (this.isAwake) {
                     grid.getTickManager().wakeDevice(node);
                 } else {
@@ -341,6 +364,12 @@ public class CraftingThread {
         public boolean allowInsert(InternalInventory inv, int slot, ItemStack stack) {
             return false;
         }
+    }
+
+    public interface Pusher {
+
+        ItemStack push(ItemStack stack, Direction d);
+
     }
 
 }

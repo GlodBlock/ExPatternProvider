@@ -15,6 +15,11 @@ import com.glodblock.github.extendedae.common.blocks.BlockExPatternProvider;
 import com.glodblock.github.extendedae.common.blocks.BlockFishbig;
 import com.glodblock.github.extendedae.common.blocks.BlockIngredientBuffer;
 import com.glodblock.github.extendedae.common.blocks.BlockWirelessConnector;
+import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixCrafter;
+import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixFrame;
+import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixPattern;
+import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixSpeed;
+import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixWall;
 import com.glodblock.github.extendedae.common.items.InfinityCell;
 import com.glodblock.github.extendedae.common.items.ItemDriveUpgrade;
 import com.glodblock.github.extendedae.common.items.ItemIOBusUpgrade;
@@ -52,6 +57,11 @@ import com.glodblock.github.extendedae.common.tileentities.TileExMolecularAssemb
 import com.glodblock.github.extendedae.common.tileentities.TileExPatternProvider;
 import com.glodblock.github.extendedae.common.tileentities.TileIngredientBuffer;
 import com.glodblock.github.extendedae.common.tileentities.TileWirelessConnector;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixFrame;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixSpeed;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixWall;
 import com.glodblock.github.extendedae.xmod.appliede.APECommonLoad;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.ModList;
@@ -95,6 +105,11 @@ public class EPPItemAndBlock {
     public static WirelessTerminalItem WIRELESS_EX_PAT;
     public static PartItem<PartPreciseStorageBus> PRECISE_STORAGE_BUS;
     public static PartItem<PartThresholdExportBus> THRESHOLD_EXPORT_BUS;
+    public static BlockAssemblerMatrixFrame ASSEMBLER_MATRIX_FRAME;
+    public static BlockAssemblerMatrixWall ASSEMBLER_MATRIX_WALL;
+    public static BlockAssemblerMatrixPattern ASSEMBLER_MATRIX_PATTERN;
+    public static BlockAssemblerMatrixCrafter ASSEMBLER_MATRIX_CRAFTER;
+    public static BlockAssemblerMatrixSpeed ASSEMBLER_MATRIX_SPEED;
     // AppliedE Support
     public static AEBaseBlock EX_EMC_INTERFACE;
     public static PartItem<?> EX_EMC_INTERFACE_PART;
@@ -140,6 +155,11 @@ public class EPPItemAndBlock {
         PRECISE_EXPORT_BUS = new PartItem<>(new Item.Properties(), PartPreciseExportBus.class, PartPreciseExportBus::new);
         PRECISE_STORAGE_BUS = new PartItem<>(new Item.Properties(), PartPreciseStorageBus.class, PartPreciseStorageBus::new);
         THRESHOLD_EXPORT_BUS = new PartItem<>(new Item.Properties(), PartThresholdExportBus.class, PartThresholdExportBus::new);
+        ASSEMBLER_MATRIX_FRAME = new BlockAssemblerMatrixFrame();
+        ASSEMBLER_MATRIX_WALL = new BlockAssemblerMatrixWall();
+        ASSEMBLER_MATRIX_PATTERN = new BlockAssemblerMatrixPattern();
+        ASSEMBLER_MATRIX_CRAFTER = new BlockAssemblerMatrixCrafter();
+        ASSEMBLER_MATRIX_SPEED = new BlockAssemblerMatrixSpeed();
         if (ModList.get().isLoaded("ae2wtlib")) {
             try {
                 //To prevent classloader issue
@@ -189,6 +209,11 @@ public class EPPItemAndBlock {
         regHandler.item("wireless_ex_pat", WIRELESS_EX_PAT);
         regHandler.item("precise_storage_bus", PRECISE_STORAGE_BUS);
         regHandler.item("threshold_export_bus", THRESHOLD_EXPORT_BUS);
+        regHandler.block("assembler_matrix_frame", ASSEMBLER_MATRIX_FRAME, TileAssemblerMatrixFrame.class, TileAssemblerMatrixFrame::new);
+        regHandler.block("assembler_matrix_wall", ASSEMBLER_MATRIX_WALL, TileAssemblerMatrixWall.class, TileAssemblerMatrixWall::new);
+        regHandler.block("assembler_matrix_pattern", ASSEMBLER_MATRIX_PATTERN, TileAssemblerMatrixPattern.class, TileAssemblerMatrixPattern::new);
+        regHandler.block("assembler_matrix_crafter", ASSEMBLER_MATRIX_CRAFTER, TileAssemblerMatrixCrafter.class, TileAssemblerMatrixCrafter::new);
+        regHandler.block("assembler_matrix_speed", ASSEMBLER_MATRIX_SPEED, TileAssemblerMatrixSpeed.class, TileAssemblerMatrixSpeed::new);
         if (ModList.get().isLoaded("appliede")) {
             APECommonLoad.initSingleton(regHandler);
         }
