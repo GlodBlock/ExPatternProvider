@@ -14,7 +14,6 @@ import appeng.util.inv.AppEngInternalInventory;
 import appeng.util.inv.InternalInventoryHost;
 import appeng.util.inv.filter.IAEItemFilter;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
-import com.glodblock.github.extendedae.common.me.FreqGenerator;
 import com.glodblock.github.extendedae.common.me.matrix.ClusterAssemblerMatrix;
 import com.glodblock.github.glodium.util.GlodUtil;
 import net.minecraft.core.BlockPos;
@@ -32,10 +31,8 @@ import java.util.function.Supplier;
 public class TileAssemblerMatrixPattern extends TileAssemblerMatrixFunction implements InternalInventoryHost, ICraftingProvider, PatternContainer {
 
     public final static int INV_SIZE = 36;
-    private final static FreqGenerator<Integer> G = FreqGenerator.createInt();
     private final AppEngInternalInventory patternInventory;
     private final List<IPatternDetails> patterns = new ArrayList<>();
-    private int locateID = 0;
 
     public TileAssemblerMatrixPattern(BlockPos pos, BlockState blockState) {
         super(GlodUtil.getTileType(TileAssemblerMatrixPattern.class, TileAssemblerMatrixPattern::new, EPPItemAndBlock.ASSEMBLER_MATRIX_PATTERN), pos, blockState);
@@ -60,11 +57,8 @@ public class TileAssemblerMatrixPattern extends TileAssemblerMatrixFunction impl
         return this.patternInventory;
     }
 
-    public int getLocateID() {
-        if (this.locateID == 0) {
-            this.locateID = G.genFreq();
-        }
-        return this.locateID;
+    public long getLocateID() {
+        return this.worldPosition.asLong();
     }
 
     public void updatePatterns() {

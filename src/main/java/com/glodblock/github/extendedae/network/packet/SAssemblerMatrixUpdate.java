@@ -11,14 +11,14 @@ import net.minecraft.world.item.ItemStack;
 
 public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> {
 
-    private int patternID;
+    private long patternID;
     private Int2ObjectMap<ItemStack> updateMap;
 
     public SAssemblerMatrixUpdate() {
         // NO-OP
     }
 
-    public SAssemblerMatrixUpdate(int id, Int2ObjectMap<ItemStack> updateMap) {
+    public SAssemblerMatrixUpdate(long id, Int2ObjectMap<ItemStack> updateMap) {
         this.patternID = id;
         // deep clone to prevent CME
         this.updateMap = new Int2ObjectOpenHashMap<>(updateMap);
@@ -26,7 +26,7 @@ public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> 
 
     @Override
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeInt(this.patternID);
+        buf.writeLong(this.patternID);
         buf.writeInt(this.updateMap.size());
         for (var entry : this.updateMap.int2ObjectEntrySet()) {
             buf.writeInt(entry.getIntKey());
@@ -36,7 +36,7 @@ public class SAssemblerMatrixUpdate implements IMessage<SAssemblerMatrixUpdate> 
 
     @Override
     public void fromBytes(FriendlyByteBuf buf) {
-        this.patternID = buf.readInt();
+        this.patternID = buf.readLong();
         this.updateMap = new Int2ObjectOpenHashMap<>();
         int size = buf.readInt();
         for (int i = 0; i < size; i ++) {
