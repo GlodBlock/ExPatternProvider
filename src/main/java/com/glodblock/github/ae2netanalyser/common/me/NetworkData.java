@@ -75,6 +75,8 @@ public class NetworkData {
             AEAnalyser.LOGGER.error("Fail to analyse the network. The packet is corrupted!", e);
             data.isCorrupt = true;
         }
+        // clear corrupted byte
+        buf.clear();
         return data;
     }
 
