@@ -28,6 +28,7 @@ import com.glodblock.github.extendedae.common.parts.PartExPatternAccessTerminal;
 import com.glodblock.github.extendedae.common.parts.PartExPatternProvider;
 import com.glodblock.github.extendedae.common.parts.PartModExportBus;
 import com.glodblock.github.extendedae.common.parts.PartModStorageBus;
+import com.glodblock.github.extendedae.common.parts.PartOversizeInterface;
 import com.glodblock.github.extendedae.common.parts.PartPreciseExportBus;
 import com.glodblock.github.extendedae.common.parts.PartPreciseStorageBus;
 import com.glodblock.github.extendedae.common.parts.PartTagExportBus;
@@ -135,6 +136,7 @@ public class EAERegistryHandler extends RegistryHandler {
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("ex_ioport"), ContainerExIOPort.TYPE);
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("precise_storage_bus"), ContainerPreciseStorageBus.TYPE);
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("threshold_export_bus"), ContainerThresholdExportBus.TYPE);
+        ForgeRegistries.MENU_TYPES.register(AppEng.makeId("oversize_interface"), ContainerExInterface.TYPE_OVERSIZE);
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("assembler_matrix"), ContainerAssemblerMatrix.TYPE);
         ForgeRegistries.MENU_TYPES.register(ContainerProcessingPattern.ID, ContainerProcessingPattern.TYPE);
         ForgeRegistries.MENU_TYPES.register(ContainerCraftingPattern.ID, ContainerCraftingPattern.TYPE);
@@ -190,6 +192,10 @@ public class EAERegistryHandler extends RegistryHandler {
         Upgrades.add(AEItems.CRAFTING_CARD, EPPItemAndBlock.EX_INTERFACE.asItem(), 1, "gui.expatternprovider.ex_interface");
         Upgrades.add(AEItems.FUZZY_CARD, EPPItemAndBlock.EX_INTERFACE_PART.asItem(), 1, "gui.expatternprovider.ex_interface");
         Upgrades.add(AEItems.CRAFTING_CARD, EPPItemAndBlock.EX_INTERFACE_PART.asItem(), 1, "gui.expatternprovider.ex_interface");
+        Upgrades.add(AEItems.FUZZY_CARD, EPPItemAndBlock.OVERSIZE_INTERFACE, 1, "gui.expatternprovider.oversize_interface");
+        Upgrades.add(AEItems.CRAFTING_CARD, EPPItemAndBlock.OVERSIZE_INTERFACE, 1, "gui.expatternprovider.oversize_interface");
+        Upgrades.add(AEItems.FUZZY_CARD, EPPItemAndBlock.OVERSIZE_INTERFACE_PART, 1, "gui.expatternprovider.oversize_interface");
+        Upgrades.add(AEItems.CRAFTING_CARD, EPPItemAndBlock.OVERSIZE_INTERFACE_PART, 1, "gui.expatternprovider.oversize_interface");
         Upgrades.add(AEItems.CAPACITY_CARD, EPPItemAndBlock.EX_EXPORT_BUS, 5, "group.ex_io_bus_part");
         Upgrades.add(AEItems.REDSTONE_CARD, EPPItemAndBlock.EX_EXPORT_BUS, 1, "group.ex_io_bus_part");
         Upgrades.add(AEItems.SPEED_CARD, EPPItemAndBlock.EX_EXPORT_BUS, 4, "group.ex_io_bus_part");
@@ -247,6 +253,7 @@ public class EAERegistryHandler extends RegistryHandler {
         PartModels.registerModels(PartPreciseExportBus.MODELS);
         PartModels.registerModels(PartPreciseStorageBus.MODEL_BASE);
         PartModels.registerModels(PartThresholdExportBus.MODELS);
+        PartModels.registerModels(PartOversizeInterface.MODELS);
     }
 
     private void initPackageList() {

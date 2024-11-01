@@ -29,6 +29,9 @@ public class EPPItemTagsProvider extends ItemTagsProvider {
         tag(EPPTags.EX_INTERFACE)
                 .add(EPPItemAndBlock.EX_INTERFACE_PART)
                 .add(EPPItemAndBlock.EX_INTERFACE.asItem());
+        tag(EPPTags.OVERSIZE_INTERFACE)
+                .add(EPPItemAndBlock.OVERSIZE_INTERFACE_PART)
+                .add(EPPItemAndBlock.OVERSIZE_INTERFACE.asItem());
         if (ModList.get().isLoaded("appliede")) {
             tag(EPPTags.EX_EMC_INTERFACE)
                     .addOptional(EPPItemAndBlock.EX_EMC_INTERFACE.getRegistryName())
