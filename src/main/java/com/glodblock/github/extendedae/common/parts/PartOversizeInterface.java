@@ -42,6 +42,8 @@ public class PartOversizeInterface extends PartExInterface {
         var logic = this.getInterfaceLogic();
         Ae2Reflect.setInterfaceConfig(logic, new OversizeConfigInv(null, GenericStackInv.Mode.CONFIG_STACKS, 36, () -> Ae2Reflect.onInterfaceConfigChange(logic), false));
         Ae2Reflect.setInterfaceStorage(logic, new OversizeConfigInv(null, GenericStackInv.Mode.STORAGE, 36, () -> Ae2Reflect.onInterfaceStorageChange(logic), true));
+        this.getConfig().useRegisteredCapacities();
+        this.getStorage().useRegisteredCapacities();
     }
 
     @Override
