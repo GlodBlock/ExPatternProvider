@@ -1,0 +1,9 @@
+{
+  "parent": "ae2:item/cable_interface",
+  "textures": {
+    "front": "expatternprovider:part/oversize_interface",
+    "sides": "expatternprovider:part/oversize_interface_sides",
+    "particle": "expatternprovider:part/oversize_interface_back",
+    "back": "expatternprovider:part/oversize_interface_back"
+  }
+}

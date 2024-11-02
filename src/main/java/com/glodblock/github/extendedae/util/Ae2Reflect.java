@@ -11,11 +11,13 @@ import appeng.blockentity.AEBaseBlockEntity;
 import appeng.blockentity.storage.DriveBlockEntity;
 import appeng.blockentity.storage.IOPortBlockEntity;
 import appeng.crafting.pattern.AECraftingPattern;
+import appeng.helpers.InterfaceLogic;
 import appeng.helpers.patternprovider.PatternContainer;
 import appeng.parts.AEBasePart;
 import appeng.parts.automation.AbstractLevelEmitterPart;
 import appeng.parts.automation.ExportBusPart;
 import appeng.parts.automation.IOBusPart;
+import appeng.util.ConfigInventory;
 import appeng.util.inv.AppEngInternalInventory;
 import com.glodblock.github.glodium.reflect.ReflectKit;
 import net.minecraft.network.chat.Component;
@@ -41,12 +43,16 @@ public class Ae2Reflect {
     private static final Field fAECraftingPattern_recipe;
     private static final Field fIOPortBlockEntity_inputCells;
     private static final Field fIOPortBlockEntity_upgrades;
+    private static final Field fInterfaceLogic_config;
+    private static final Field fInterfaceLogic_storage;
     private static final Method mDriveBlockEntity_updateClientSideState;
     private static final Method mAECraftingPattern_getCompressedIndexFromSparse;
     private static final Method mIOBusPart_updateState;
     private static final Method mExportBusPart_createTransferContext;
     private static final Method mIOPortBlockEntity_transferContents;
     private static final Method mIOPortBlockEntity_moveSlot;
+    private static final Method mInterfaceLogic_onConfigRowChanged;
+    private static final Method mInterfaceLogic_onStorageChanged;
 
     static {
         try {
@@ -62,12 +68,16 @@ public class Ae2Reflect {
             fAECraftingPattern_recipe = ReflectKit.reflectField(AECraftingPattern.class, "recipe");
             fIOPortBlockEntity_inputCells = ReflectKit.reflectField(IOPortBlockEntity.class, "inputCells");
             fIOPortBlockEntity_upgrades = ReflectKit.reflectField(IOPortBlockEntity.class, "upgrades");
+            fInterfaceLogic_config = ReflectKit.reflectField(InterfaceLogic.class, "config");
+            fInterfaceLogic_storage = ReflectKit.reflectField(InterfaceLogic.class, "storage");
             mDriveBlockEntity_updateClientSideState = ReflectKit.reflectMethod(DriveBlockEntity.class, "updateClientSideState");
             mAECraftingPattern_getCompressedIndexFromSparse = ReflectKit.reflectMethod(AECraftingPattern.class, "getCompressedIndexFromSparse", int.class);
             mIOBusPart_updateState = ReflectKit.reflectMethod(IOBusPart.class, "updateState");
             mExportBusPart_createTransferContext = ReflectKit.reflectMethod(ExportBusPart.class, "createTransferContext", IStorageService.class, IEnergyService.class);
             mIOPortBlockEntity_transferContents = ReflectKit.reflectMethod(IOPortBlockEntity.class, "transferContents", IGrid.class, StorageCell.class, long.class);
             mIOPortBlockEntity_moveSlot = ReflectKit.reflectMethod(IOPortBlockEntity.class, "moveSlot", int.class);
+            mInterfaceLogic_onConfigRowChanged = ReflectKit.reflectMethod(InterfaceLogic.class, "onConfigRowChanged");
+            mInterfaceLogic_onStorageChanged = ReflectKit.reflectMethod(InterfaceLogic.class, "onStorageChanged");
         } catch (Exception e) {
             throw new IllegalStateException("Failed to initialize AE2 reflection hacks!", e);
         }
@@ -148,6 +158,22 @@ public class Ae2Reflect {
 
     public static boolean moveSlotInCell(IOPortBlockEntity owner, int x) {
         return ReflectKit.executeMethod2(owner, mIOPortBlockEntity_moveSlot, x);
+    }
+
+    public static void setInterfaceStorage(InterfaceLogic owner, ConfigInventory storage) {
+        ReflectKit.writeField(owner, fInterfaceLogic_storage, storage);
+    }
+
+    public static void setInterfaceConfig(InterfaceLogic owner, ConfigInventory config) {
+        ReflectKit.writeField(owner, fInterfaceLogic_config, config);
+    }
+
+    public static void onInterfaceConfigChange(InterfaceLogic owner) {
+        ReflectKit.executeMethod(owner, mInterfaceLogic_onConfigRowChanged);
+    }
+
+    public static void onInterfaceStorageChange(InterfaceLogic owner) {
+        ReflectKit.executeMethod(owner, mInterfaceLogic_onStorageChanged);
     }
 
 }

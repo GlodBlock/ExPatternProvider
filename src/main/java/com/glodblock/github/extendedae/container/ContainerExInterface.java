@@ -27,6 +27,9 @@ public class ContainerExInterface extends UpgradeableMenu<InterfaceLogicHost> im
     public static final MenuType<ContainerExInterface> TYPE = MenuTypeBuilder
             .create(ContainerExInterface::new, InterfaceLogicHost.class)
             .build("ex_interface");
+    public static final MenuType<ContainerExInterface> TYPE_OVERSIZE = MenuTypeBuilder
+            .create(ContainerExInterface::new, InterfaceLogicHost.class)
+            .build("oversize_interface");
 
     private static final int PAGE = 18;
     private static final int LINE = 9;
@@ -40,8 +43,8 @@ public class ContainerExInterface extends UpgradeableMenu<InterfaceLogicHost> im
     @GuiSync(7)
     public int page;
 
-    public ContainerExInterface(int id, Inventory ip, InterfaceLogicHost host) {
-        super(TYPE, id, ip, host);
+    public ContainerExInterface(MenuType<?> menuType, int id, Inventory ip, InterfaceLogicHost host) {
+        super(menuType, id, ip, host);
         registerClientAction(ACTION_OPEN_SET_AMOUNT, Integer.class, this::openSetAmountMenu);
         var logic = host.getInterfaceLogic();
         var config = logic.getConfig().createMenuWrapper();

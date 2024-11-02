@@ -498,6 +498,33 @@ public class EPPRecipeProvider extends RecipeProvider {
                 .unlockedBy(C, has(EPPItemAndBlock.FISHBIG))
                 .save(c, ExtendedAE.id("fishbig"));
 
+        // Oversize Interface
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, EPPItemAndBlock.OVERSIZE_INTERFACE)
+                .pattern("ABF")
+                .pattern("LCE")
+                .pattern("AIF")
+                .define('A', AEItems.ANNIHILATION_CORE)
+                .define('B', EPPItemAndBlock.INGREDIENT_BUFFER)
+                .define('F', AEItems.FORMATION_CORE)
+                .define('L', AEItems.LOGIC_PROCESSOR)
+                .define('C', AEItems.CALCULATION_PROCESSOR)
+                .define('E', AEItems.ENGINEERING_PROCESSOR)
+                .define('I', EPPTags.EX_INTERFACE)
+                .unlockedBy(C, has(EPPItemAndBlock.OVERSIZE_INTERFACE))
+                .save(c, ExtendedAE.id("oversize_interface"));
+
+        ShapelessRecipeBuilder
+                .shapeless(RecipeCategory.MISC, EPPItemAndBlock.OVERSIZE_INTERFACE_PART)
+                .requires(EPPItemAndBlock.OVERSIZE_INTERFACE)
+                .unlockedBy(C, has(EPPItemAndBlock.OVERSIZE_INTERFACE))
+                .save(c, ExtendedAE.id("oversize_interface_part"));
+        ShapelessRecipeBuilder
+                .shapeless(RecipeCategory.MISC, EPPItemAndBlock.OVERSIZE_INTERFACE)
+                .requires(EPPItemAndBlock.OVERSIZE_INTERFACE_PART)
+                .unlockedBy(C, has(EPPItemAndBlock.OVERSIZE_INTERFACE_PART))
+                .save(c, ExtendedAE.id("oversize_interface_alt"));
+
         if (ModList.get().isLoaded("appliede")) {
             var interfaceTag = TagKey.create(Registries.ITEM, new ResourceLocation("appliede", "emc_interface"));
             // Extended EMC Interface

@@ -10,5 +10,6 @@ public class EPPTags {
     public static final TagKey<Item> EX_PATTERN_PROVIDER = TagKey.create(Registries.ITEM, ExtendedAE.id("extended_pattern_provider"));
     public static final TagKey<Item> EX_INTERFACE = TagKey.create(Registries.ITEM, ExtendedAE.id("extended_interface"));
     public static final TagKey<Item> EX_EMC_INTERFACE = TagKey.create(Registries.ITEM, ExtendedAE.id("extended_emc_interface"));
+    public static final TagKey<Item> OVERSIZE_INTERFACE = TagKey.create(Registries.ITEM, ExtendedAE.id("oversize_interface"));
 
 }
