@@ -5,7 +5,7 @@ import appeng.api.stacks.AEFluidKey;
 import appeng.api.stacks.AEItemKey;
 import appeng.api.stacks.AEKey;
 import com.glodblock.github.extendedae.common.items.ItemInfinityCell;
-import com.glodblock.github.extendedae.util.InfinityCellInit;
+import com.glodblock.github.extendedae.util.LazyInits;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
 import dev.latvian.mods.rhino.util.ReturnsSelf;
@@ -53,7 +53,7 @@ public class InfinityCellBuilder extends ItemBuilder {
     public Item createObject() {
         var cell = new ItemInfinityCell(this.record, this.createItemProperties().stacksTo(1));
         if (this.model != null) {
-            InfinityCellInit.addModel(() -> StorageCellModels.registerModel(cell, this.model));
+            LazyInits.addCommon(() -> StorageCellModels.registerModel(cell, this.model));
         }
         return cell;
     }

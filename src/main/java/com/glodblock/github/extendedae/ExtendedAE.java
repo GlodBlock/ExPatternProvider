@@ -8,7 +8,7 @@ import com.glodblock.github.extendedae.common.hooks.CutterHook;
 import com.glodblock.github.extendedae.config.EAEConfig;
 import com.glodblock.github.extendedae.network.EAENetworkHandler;
 import com.glodblock.github.extendedae.recipe.CrystalFixerRecipe;
-import com.glodblock.github.extendedae.util.InfinityCellInit;
+import com.glodblock.github.extendedae.util.LazyInits;
 import com.glodblock.github.extendedae.xmod.ModConstants;
 import com.glodblock.github.extendedae.xmod.darkmode.BlacklistGUI;
 import com.glodblock.github.extendedae.xmod.wt.ContainerWirelessExPAT;
@@ -84,7 +84,7 @@ public class ExtendedAE {
 
     public void commonSetup(FMLCommonSetupEvent event) {
         EAERegistryHandler.INSTANCE.onInit();
-        InfinityCellInit.initModel();
+        LazyInits.initCommon();
     }
 
     public void clientSetup(FMLClientSetupEvent event) {
@@ -104,7 +104,7 @@ public class ExtendedAE {
     }
 
     public void onFinalization(FMLLoadCompleteEvent event) {
-        InfinityCellInit.init();
+        LazyInits.initFinal();
     }
 
     public static ResourceLocation id(String id) {

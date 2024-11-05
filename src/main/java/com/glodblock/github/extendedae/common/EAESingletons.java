@@ -202,8 +202,8 @@ public class EAESingletons {
         EX_PATTERN_PROVIDER_PART = new PartItem<>(new Item.Properties(), PartExPatternProvider.class, PartExPatternProvider::new);
         EX_INTERFACE = new BlockExInterface();
         EX_INTERFACE_PART = new PartItem<>(new Item.Properties(), PartExInterface.class, PartExInterface::new);
-        INFINITY_WATER_CELL = new ItemInfinityCell(AEFluidKey.of(Fluids.WATER));
-        INFINITY_COBBLESTONE_CELL = new ItemInfinityCell(AEItemKey.of(Blocks.COBBLESTONE));
+        INFINITY_WATER_CELL = new ItemInfinityCell(() -> AEFluidKey.of(Fluids.WATER));
+        INFINITY_COBBLESTONE_CELL = new ItemInfinityCell(() -> AEItemKey.of(Blocks.COBBLESTONE));
         EX_EXPORT_BUS = new PartItem<>(new Item.Properties(), PartExExportBus.class, PartExExportBus::new);
         EX_IMPORT_BUS = new PartItem<>(new Item.Properties(), PartExImportBus.class, PartExImportBus::new);
         EX_PATTERN_TERMINAL = new PartItem<>(new Item.Properties(), PartExPatternAccessTerminal.class, PartExPatternAccessTerminal::new);

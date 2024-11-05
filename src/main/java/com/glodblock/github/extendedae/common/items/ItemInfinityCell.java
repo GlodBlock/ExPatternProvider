@@ -4,7 +4,7 @@ import appeng.api.stacks.AEKey;
 import appeng.api.stacks.GenericStack;
 import appeng.items.AEBaseItem;
 import appeng.items.storage.StorageCellTooltipComponent;
-import com.glodblock.github.extendedae.util.InfinityCellInit;
+import com.glodblock.github.extendedae.util.LazyInits;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -22,14 +22,14 @@ public class ItemInfinityCell extends AEBaseItem {
 
     private AEKey record;
 
-    public ItemInfinityCell(@NotNull AEKey type) {
+    public ItemInfinityCell(@NotNull Supplier<AEKey> type) {
         super(new Item.Properties().stacksTo(1));
-        this.record = type;
+        LazyInits.addFinal(() -> this.record = type.get());
     }
 
     public ItemInfinityCell(@NotNull Supplier<AEKey> type, Properties properties) {
         super(properties);
-        InfinityCellInit.add(() -> this.record = type.get());
+        LazyInits.addFinal(() -> this.record = type.get());
     }
 
     public AEKey getRecord() {
