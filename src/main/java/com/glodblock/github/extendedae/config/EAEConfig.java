@@ -31,10 +31,12 @@ public class EAEConfig {
             .comment("The max range between two wireless connector")
             .defineInRange("device.wireless_connector_max_range", 1000.0, 10.0, 10000.0);
 
+    @SuppressWarnings("deprecation")
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> PATTERN_MODIFIER_NUMBER = BUILDER
             .comment("Pattern modifier multipliers")
             .defineList("item.pattern_modifier_multipliers", defaultModifierMultiplier, EAEConfig::checkPositive);
 
+    @SuppressWarnings("deprecation")
     private static final ModConfigSpec.ConfigValue<List<? extends String>> PACKABLE_AE_DEVICE = BUILDER
             .comment("The AE device/part that can be packed by ME Packing Tape")
             .defineList("item.me_packing_tape_whitelist", Lists.newArrayList(
@@ -62,6 +64,10 @@ public class EAEConfig {
             .comment("Allow Crystal Assembler to do processor inscriber recipes")
             .define("device.enable_crystal_assembler_inscribe_processors", true);
 
+    private static final ModConfigSpec.IntValue ASSEMBLER_MATRIX_SIZE = BUILDER
+            .comment("The max size of assembler matrix")
+            .defineInRange("device.assembler_matrix_max_size", 6, 3, 16);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private static boolean checkPositive(Object o) {
@@ -76,6 +82,7 @@ public class EAEConfig {
     public static int oversizeMultiplier;
     private static List<? extends Integer> modifierMultiplier;
     public static boolean allowAssemblerCircuits;
+    public static int assemblerMatrixSize;
 
     public static int getPatternModifierNumber(int index) {
         if (index >= modifierMultiplier.size()) {
@@ -96,6 +103,7 @@ public class EAEConfig {
             oversizeMultiplier = OVERSIZE_MULTIPLIER.get();
             modifierMultiplier = PATTERN_MODIFIER_NUMBER.get();
             allowAssemblerCircuits = CRYSTAL_INSCRIBER.get();
+            assemblerMatrixSize = ASSEMBLER_MATRIX_SIZE.get();
         }
     }
 
