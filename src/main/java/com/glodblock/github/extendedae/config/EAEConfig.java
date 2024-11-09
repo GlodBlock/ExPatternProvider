@@ -65,7 +65,7 @@ public class EAEConfig {
             .define("device.enable_crystal_assembler_inscribe_processors", true);
 
     private static final ModConfigSpec.IntValue ASSEMBLER_MATRIX_SIZE = BUILDER
-            .comment("The max size of assembler matrix")
+            .comment("The max size of Assembler Matrix")
             .defineInRange("device.assembler_matrix_max_size", 6, 3, 16);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
