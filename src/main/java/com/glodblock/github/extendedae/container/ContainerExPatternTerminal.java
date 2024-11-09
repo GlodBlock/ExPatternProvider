@@ -4,14 +4,13 @@ import appeng.api.storage.IPatternAccessTermMenuHost;
 import appeng.menu.implementations.MenuTypeBuilder;
 import appeng.menu.implementations.PatternAccessTermMenu;
 import com.glodblock.github.extendedae.ExtendedAE;
-import com.glodblock.github.extendedae.common.parts.PartExPatternAccessTerminal;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 
 public class ContainerExPatternTerminal extends PatternAccessTermMenu {
 
     public static final MenuType<ContainerExPatternTerminal> TYPE = MenuTypeBuilder
-            .create(ContainerExPatternTerminal::new, PartExPatternAccessTerminal.class)
+            .create(ContainerExPatternTerminal::new, IPatternAccessTermMenuHost.class)
             .build(ExtendedAE.id("ex_pattern_access_terminal"));
 
     public ContainerExPatternTerminal(int id, Inventory ip, IPatternAccessTermMenuHost host) {
