@@ -92,6 +92,7 @@ dependencies {
     compileOnly "curse.maven:grandpower-980156:5432440"
     compileOnly "dev.emi:emi-neoforge:1.1.10+1.21"
     compileOnly "curse.maven:jade-324717:5427817"
+    compileOnly "curse.maven:wireless-chargers-510656:5551798"
     // runtime test
     runtimeOnly "dev.emi:emi-neoforge:1.1.10+1.21"
     runtimeOnly "curse.maven:jade-324717:5427817"
