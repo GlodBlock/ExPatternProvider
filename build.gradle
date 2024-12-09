@@ -81,6 +81,7 @@ repositories {
         content {
             includeGroup("appeng")
             includeGroup("de.mari_023")
+            includeGroup("mekanism")
         }
     }
     maven {
@@ -102,18 +103,19 @@ repositories {
 
 dependencies {
     implementation "curse.maven:glodium-957920:5821676"
-    implementation "appeng:appliedenergistics2:19.0.20-beta"
+    implementation "appeng:appliedenergistics2:19.0.24"
     jarJar(implementation "de.mari_023:ae2wtlib_api:19.1.0-alpha.1")
     compileOnly "curse.maven:applied-flux-965012:5614830"
     compileOnly "dev.emi:emi-neoforge:1.1.10+1.21"
-    compileOnly "curse.maven:mega-cells-622112:5662141"
+    compileOnly "curse.maven:mega-cells-622112:5920216"
     compileOnly "curse.maven:jade-324717:5427817"
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:16.0.729"
+    compileOnly "mekanism:Mekanism:1.21.1-10.7.0.55:api"
+    compileOnly "curse.maven:applied-mekanistics-574300:5664061"
     compileOnly "dev.latvian.mods:kubejs-neoforge:2101.7.0-build.171"
     // runtime test
     runtimeOnly "curse.maven:applied-flux-965012:5614830"
     runtimeOnly "de.mari_023:ae2wtlib:19.1.0-alpha.1"
-    runtimeOnly "curse.maven:mega-cells-622112:5662141"
     runtimeOnly "curse.maven:jade-324717:5427817"
     // setup Xei
     switch(use_Xei) {

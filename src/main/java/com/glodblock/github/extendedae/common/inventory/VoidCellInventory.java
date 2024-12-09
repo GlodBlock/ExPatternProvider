@@ -22,6 +22,9 @@ import appeng.util.prioritylist.IPartitionList;
 import com.glodblock.github.extendedae.api.VoidMode;
 import com.glodblock.github.extendedae.common.EAESingletons;
 import com.glodblock.github.extendedae.common.items.ItemVoidCell;
+import com.glodblock.github.extendedae.xmod.ModConstants;
+import com.glodblock.github.extendedae.xmod.mek.ChemBlacklist;
+import com.glodblock.github.glodium.util.GlodUtil;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import net.minecraft.network.chat.Component;
@@ -158,6 +161,11 @@ public class VoidCellInventory implements StorageCell {
         }
         if (!this.partitionList.matchesFilter(what, this.partitionListMode)) {
             return 0;
+        }
+        if (GlodUtil.checkMod(ModConstants.APPMEK)) {
+            if (!ChemBlacklist.isValid(what)) {
+                return 0;
+            }
         }
         if (mode == Actionable.MODULATE) {
             this.voidEnergy += (double) amount / what.getAmountPerUnit();
