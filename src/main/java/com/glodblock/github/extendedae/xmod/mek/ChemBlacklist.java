@@ -8,9 +8,9 @@ public class ChemBlacklist {
 
     public static boolean isValid(AEKey what) {
         if (what instanceof MekanismKey chem) {
-            return !ChemicalAttributeValidator.DEFAULT.process(chem.getStack());
+            return ChemicalAttributeValidator.DEFAULT.process(chem.getStack());
         }
-        return false;
+        return true;
     }
 
 }
