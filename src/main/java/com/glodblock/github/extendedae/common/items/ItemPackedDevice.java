@@ -84,7 +84,10 @@ public class ItemPackedDevice extends AEBaseItem {
                     if (placement != null) {
                         var part = PartPlacement.placePart(context.getPlayer(), world, partItem, null, placement.pos(), placement.side());
                         if (part != null) {
-                            part.readFromNBT(ctx.getCompound("ctx"));
+                            var contents = ctx.getCompound("ctx");
+                            contents.put("BYPASS_EXTENDEDAE", new CompoundTag());
+                            part.readFromNBT(contents);
+                            part.addToWorld();
                             pack.shrink(1);
                             return InteractionResult.sidedSuccess(world.isClientSide);
                         } else {
@@ -125,7 +128,7 @@ public class ItemPackedDevice extends AEBaseItem {
         return InteractionResult.PASS;
     }
 
-    private boolean checkNBT(CompoundTag content) {
+    public boolean checkNBT(CompoundTag content) {
         return content.contains("part") && content.contains("id") && content.contains("ctx");
     }
 
