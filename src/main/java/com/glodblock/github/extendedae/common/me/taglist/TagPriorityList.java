@@ -12,20 +12,36 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 public class TagPriorityList implements IPartitionList {
 
-    private final Set<TagKey<?>> whiteSet;
-    private final Set<TagKey<?>> blackSet;
-    private final String tagExp;
+    private static final Map<TagPriorityList, Runnable> INVALIDATOR = new WeakHashMap<>();
+    private Set<TagKey<?>> whiteSet;
+    private Set<TagKey<?>> blackSet;
+    private final String tagExpWhite;
+    private final String tagExpBlack;
     // Cache isn't fast enough here, so I have to use map here.
     private final Reference2BooleanMap<Object> memory = new Reference2BooleanOpenHashMap<>();
 
-    public TagPriorityList(Set<TagKey<?>> whiteKeys, Set<TagKey<?>> blackKeys, String tagExp) {
+    public TagPriorityList(Set<TagKey<?>> whiteKeys, Set<TagKey<?>> blackKeys, String tagExpWhite, String tagExpBlack) {
         this.whiteSet = whiteKeys;
         this.blackSet = blackKeys;
-        this.tagExp = tagExp;
+        this.tagExpWhite = tagExpWhite;
+        this.tagExpBlack = tagExpBlack;
+        INVALIDATOR.put(this, () -> {
+            this.whiteSet = TagExpParser.getMatchingOre(this.tagExpWhite);
+            this.blackSet = TagExpParser.getMatchingOre(this.tagExpBlack);
+            this.memory.clear();
+        });
+    }
+
+    public static void reset() {
+        for (var e : INVALIDATOR.entrySet()) {
+            e.getValue().run();
+        }
     }
 
     @Override
@@ -36,7 +52,7 @@ public class TagPriorityList implements IPartitionList {
 
     @Override
     public boolean isEmpty() {
-        return this.tagExp.isEmpty();
+        return this.tagExpBlack.isEmpty() && this.tagExpWhite.isEmpty();
     }
 
     @Override

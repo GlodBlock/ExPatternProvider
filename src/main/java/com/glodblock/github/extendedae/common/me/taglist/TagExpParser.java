@@ -30,7 +30,13 @@ public final class TagExpParser {
             }
     );
 
+    public static void reset() {
+        isInit = false;
+        CACHE.invalidateAll();
+    }
+
     private static void init() {
+        TAGS.clear();
         TAGS.addAll(ForgeRegistries.ITEMS.tags().getTagNames().toList());
         TAGS.addAll(ForgeRegistries.FLUIDS.tags().getTagNames().toList());
     }
