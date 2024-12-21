@@ -4,6 +4,7 @@ import appeng.block.AEBaseBlock;
 import appeng.items.parts.PartItem;
 import appeng.items.tools.powered.WirelessTerminalItem;
 import com.glodblock.github.extendedae.common.blocks.BlockCaner;
+import com.glodblock.github.extendedae.common.blocks.BlockCircuitCutter;
 import com.glodblock.github.extendedae.common.blocks.BlockCrystalFixer;
 import com.glodblock.github.extendedae.common.blocks.BlockExCharger;
 import com.glodblock.github.extendedae.common.blocks.BlockExDrive;
@@ -49,6 +50,7 @@ import com.glodblock.github.extendedae.common.parts.PartTagStorageBus;
 import com.glodblock.github.extendedae.common.parts.PartThresholdExportBus;
 import com.glodblock.github.extendedae.common.parts.PartThresholdLevelEmitter;
 import com.glodblock.github.extendedae.common.tileentities.TileCaner;
+import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
 import com.glodblock.github.extendedae.common.tileentities.TileCrystalFixer;
 import com.glodblock.github.extendedae.common.tileentities.TileExCharger;
 import com.glodblock.github.extendedae.common.tileentities.TileExDrive;
@@ -67,7 +69,10 @@ import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerM
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixWall;
 import com.glodblock.github.extendedae.xmod.appliede.APECommonLoad;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.ModList;
+
+import static appeng.block.AEBaseBlock.metalProps;
 
 public class EPPItemAndBlock {
 
@@ -115,6 +120,8 @@ public class EPPItemAndBlock {
     public static BlockAssemblerMatrixPattern ASSEMBLER_MATRIX_PATTERN;
     public static BlockAssemblerMatrixCrafter ASSEMBLER_MATRIX_CRAFTER;
     public static BlockAssemblerMatrixSpeed ASSEMBLER_MATRIX_SPEED;
+    public static BlockCircuitCutter CIRCUIT_CUTTER;
+    public static Block SILICON_BLOCK;
     // AppliedE Support
     public static AEBaseBlock EX_EMC_INTERFACE;
     public static PartItem<?> EX_EMC_INTERFACE_PART;
@@ -167,6 +174,8 @@ public class EPPItemAndBlock {
         ASSEMBLER_MATRIX_PATTERN = new BlockAssemblerMatrixPattern();
         ASSEMBLER_MATRIX_CRAFTER = new BlockAssemblerMatrixCrafter();
         ASSEMBLER_MATRIX_SPEED = new BlockAssemblerMatrixSpeed();
+        CIRCUIT_CUTTER = new BlockCircuitCutter();
+        SILICON_BLOCK = new Block(metalProps().requiresCorrectToolForDrops());
         if (ModList.get().isLoaded("ae2wtlib")) {
             try {
                 //To prevent classloader issue
@@ -190,6 +199,8 @@ public class EPPItemAndBlock {
         regHandler.block("crystal_fixer", CRYSTAL_FIXER, TileCrystalFixer.class, TileCrystalFixer::new);
         regHandler.block("caner", CANER, TileCaner.class, TileCaner::new);
         regHandler.block("ex_io_port", EX_IO_PORT, TileExIOPort.class, TileExIOPort::new);
+        regHandler.block("circuit_cutter", CIRCUIT_CUTTER, TileCircuitCutter.class, TileCircuitCutter::new);
+        regHandler.block("silicon_block", SILICON_BLOCK);
         regHandler.block("fishbig", FISHBIG);
         regHandler.item("ex_pattern_provider_part", EX_PATTERN_PROVIDER_PART);
         regHandler.item("ex_interface_part", EX_INTERFACE_PART);

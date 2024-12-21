@@ -9,19 +9,27 @@ import appeng.core.definitions.AEParts;
 import appeng.datagen.providers.tags.ConventionTags;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
+import com.glodblock.github.extendedae.recipe.CircuitCutterRecipeBuilder;
 import com.glodblock.github.extendedae.util.EPPTags;
 import com.glodblock.github.glodium.datagen.NBTRecipeBuilder;
 import gripe._90.appliede.AppliedE;
+import gripe._90.megacells.definition.MEGAItems;
+import gripe._90.megacells.definition.MEGATags;
 import moze_intel.projecte.gameObjs.registries.PEItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.fml.ModList;
@@ -488,6 +496,40 @@ public class EPPRecipeProvider extends RecipeProvider {
                 .unlockedBy(C, has(EPPItemAndBlock.ASSEMBLER_MATRIX_WALL))
                 .save(c, ExtendedAE.id("assembler_matrix_pattern"));
 
+        // Silicon Block
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, EPPItemAndBlock.SILICON_BLOCK)
+                .pattern("###")
+                .pattern("#S#")
+                .pattern("###")
+                .define('#', ConventionTags.SILICON)
+                .define('S', AEItems.SILICON)
+                .unlockedBy(C, has(AEItems.SILICON))
+                .save(c, ExtendedAE.id("silicon_block"));
+        ShapelessRecipeBuilder
+                .shapeless(RecipeCategory.MISC, AEItems.SILICON, 9)
+                .requires(EPPItemAndBlock.SILICON_BLOCK)
+                .unlockedBy(C, has(EPPItemAndBlock.SILICON_BLOCK))
+                .save(c, ExtendedAE.id("silicon_block_disassembler"));
+
+        // Circuit Slicer
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, EPPItemAndBlock.CIRCUIT_CUTTER)
+                .pattern("IGI")
+                .pattern("1C2")
+                .pattern("3T4")
+                .define('I', ConventionTags.IRON_INGOT)
+                .define('G', AEBlocks.QUARTZ_GLASS)
+                .define('C', Blocks.STONECUTTER)
+                .define('T', AEBlocks.SKY_STONE_TANK)
+                .define('1', AEItems.CALCULATION_PROCESSOR_PRESS)
+                .define('2', AEItems.ENGINEERING_PROCESSOR_PRESS)
+                .define('3', AEItems.LOGIC_PROCESSOR_PRESS)
+                .define('4', AEItems.SILICON_PRESS)
+                .unlockedBy(C, has(Blocks.STONECUTTER))
+                .save(c, ExtendedAE.id("circuit_cutter"));
+        cutter(c);
+
         // Fishbig
         ShapedRecipeBuilder
                 .shaped(RecipeCategory.MISC, EPPItemAndBlock.FISHBIG)
@@ -603,4 +645,33 @@ public class EPPRecipeProvider extends RecipeProvider {
         }
 
     }
+
+    private void cutter(@NotNull Consumer<FinishedRecipe> c) {
+        CircuitCutterRecipeBuilder.cut(AEItems.CALCULATION_PROCESSOR_PRINT, 4)
+                .input(EPPTags.CERTUS_QUARTZ_STORAGE_BLOCK)
+                .fluid(Fluids.WATER, 100)
+                .save(c, ExtendedAE.id("cutter/calculation"));
+        CircuitCutterRecipeBuilder.cut(AEItems.LOGIC_PROCESSOR_PRINT, 9)
+                .input(Tags.Items.STORAGE_BLOCKS_GOLD)
+                .fluid(Fluids.WATER, 100)
+                .save(c, ExtendedAE.id("cutter/logic"));
+        CircuitCutterRecipeBuilder.cut(AEItems.ENGINEERING_PROCESSOR_PRINT, 9)
+                .input(Tags.Items.STORAGE_BLOCKS_DIAMOND)
+                .fluid(Fluids.WATER, 100)
+                .save(c, ExtendedAE.id("cutter/engineering"));
+        CircuitCutterRecipeBuilder.cut(AEItems.SILICON_PRINT, 9)
+                .input(EPPTags.SILICON_BLOCK)
+                .fluid(Fluids.WATER, 100)
+                .save(c, ExtendedAE.id("cutter/silicon"));
+        if (ModList.get().isLoaded("megacells")) {
+            ConditionalRecipe.builder()
+                    .addCondition(new ModLoadedCondition("megacells"))
+                    .addRecipe(
+                            CircuitCutterRecipeBuilder.cut(MEGAItems.ACCUMULATION_PROCESSOR_PRINT, 9)
+                                    .input(MEGATags.SKY_STEEL_BLOCK_ITEM)
+                                    .fluid(Fluids.LAVA, 100)::save)
+                    .build(c, ExtendedAE.id("cutter/accumulation"));
+        }
+    }
+
 }

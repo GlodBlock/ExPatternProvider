@@ -13,6 +13,7 @@ import com.glodblock.github.extendedae.client.hotkey.PatternHotKey;
 import com.glodblock.github.extendedae.client.model.ExDriveModel;
 import com.glodblock.github.extendedae.client.model.ExPlaneModel;
 import com.glodblock.github.extendedae.client.render.tesr.CanerTESR;
+import com.glodblock.github.extendedae.client.render.tesr.CircuitCutterTESR;
 import com.glodblock.github.extendedae.client.render.tesr.CrystalFixerTESR;
 import com.glodblock.github.extendedae.client.render.tesr.ExChargerTESR;
 import com.glodblock.github.extendedae.client.render.tesr.ExDriveTESR;
@@ -21,6 +22,7 @@ import com.glodblock.github.extendedae.client.render.tesr.ExMolecularAssemblerTE
 import com.glodblock.github.extendedae.client.render.tesr.IngredientBufferTESR;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.tileentities.TileCaner;
+import com.glodblock.github.extendedae.common.tileentities.TileCircuitCutter;
 import com.glodblock.github.extendedae.common.tileentities.TileCrystalFixer;
 import com.glodblock.github.extendedae.common.tileentities.TileExCharger;
 import com.glodblock.github.extendedae.common.tileentities.TileExDrive;
@@ -84,6 +86,7 @@ public class ClientRegistryHandler {
         InitScreens.register(ContainerThresholdExportBus.TYPE, GuiThresholdExportBus::new, "/screens/threshold_export_bus.json");
         InitScreens.register(ContainerExInterface.TYPE_OVERSIZE, GuiExInterface::new, "/screens/oversize_interface.json");
         InitScreens.register(ContainerAssemblerMatrix.TYPE, GuiAssemblerMatrix::new, "/screens/assembler_matrix.json");
+        InitScreens.register(ContainerCircuitCutter.TYPE, GuiCircuitCutter::new, "/screens/circuit_cutter.json");
         MenuScreens.register(ContainerProcessingPattern.TYPE, GuiProcessingPattern::new);
         MenuScreens.register(ContainerCraftingPattern.TYPE, GuiCraftingPattern::new);
         MenuScreens.register(ContainerStonecuttingPattern.TYPE, GuiStonecuttingPattern::new);
@@ -106,6 +109,7 @@ public class ClientRegistryHandler {
         BlockEntityRenderers.register(GlodUtil.getTileType(TileExCharger.class), ExChargerTESR::new);
         BlockEntityRenderers.register(GlodUtil.getTileType(TileCaner.class), CanerTESR::new);
         BlockEntityRenderers.register(GlodUtil.getTileType(TileCrystalFixer.class), CrystalFixerTESR::new);
+        BlockEntityRenderers.register(GlodUtil.getTileType(TileCircuitCutter.class), CircuitCutterTESR::new);
         event.register("ex_drive", new ExDriveModel.Loader());
         event.register("active_formation_plane", new ExPlaneModel.Loader(ExtendedAE.id("part/active_formation_plane")));
         event.register("active_formation_plane_on", new ExPlaneModel.Loader(ExtendedAE.id("part/active_formation_plane_on")));

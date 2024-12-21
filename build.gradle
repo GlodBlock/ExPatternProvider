@@ -94,8 +94,9 @@ dependencies {
     compileOnly fg.deobf("curse.maven:applied-energistics-2-wireless-terminals-459929:5162352")
     compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.0.0.12")
     compileOnly fg.deobf("curse.maven:applied-flux-965012:5329825")
+    compileOnly fg.deobf("curse.maven:mega-cells-622112:5320730")
     // for some reason this deobf jar fails to load at file correctly
-    compileOnly fg.deobf("appeng:appliedenergistics2-forge:15.2.11")
+    compileOnly fg.deobf("appeng:appliedenergistics2-forge:15.2.16")
     compileOnly fg.deobf("curse.maven:jade-324717:4768593")
     // rei
     compileOnly "me.shedaniel.cloth:basic-math:0.6.1"
@@ -116,8 +117,12 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
     // runtime test
     runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.0.0.12")
-    runtimeOnly fg.deobf("curse.maven:applied-energistics-2-223794:5565729")
+    runtimeOnly fg.deobf("curse.maven:applied-energistics-2-223794:5989151")
     runtimeOnly fg.deobf("curse.maven:jade-324717:4768593")
+    runtimeOnly fg.deobf("curse.maven:mega-cells-622112:5320730")
+    runtimeOnly fg.deobf("curse.maven:projecte-226410:4901949")
+    runtimeOnly fg.deobf("curse.maven:appliede-1009940:5364294")
+    runtimeOnly fg.deobf("curse.maven:cloth-config-348521:5729105")
 }
 
 tasks.named('processResources', ProcessResources).configure {

@@ -39,6 +39,7 @@ import com.glodblock.github.extendedae.config.EPPConfig;
 import com.glodblock.github.extendedae.container.ContainerActiveFormationPlane;
 import com.glodblock.github.extendedae.container.ContainerAssemblerMatrix;
 import com.glodblock.github.extendedae.container.ContainerCaner;
+import com.glodblock.github.extendedae.container.ContainerCircuitCutter;
 import com.glodblock.github.extendedae.container.ContainerExDrive;
 import com.glodblock.github.extendedae.container.ContainerExIOBus;
 import com.glodblock.github.extendedae.container.ContainerExIOPort;
@@ -64,6 +65,8 @@ import com.glodblock.github.extendedae.container.pattern.ContainerCraftingPatter
 import com.glodblock.github.extendedae.container.pattern.ContainerProcessingPattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerSmithingTablePattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerStonecuttingPattern;
+import com.glodblock.github.extendedae.recipe.CircuitCutterRecipe;
+import com.glodblock.github.extendedae.recipe.CircuitCutterRecipeSerializer;
 import com.glodblock.github.extendedae.xmod.appflux.AFCommonLoad;
 import com.glodblock.github.extendedae.xmod.appliede.APECommonLoad;
 import com.glodblock.github.extendedae.xmod.wt.WTCommonLoad;
@@ -105,10 +108,16 @@ public class EAERegistryHandler extends RegistryHandler {
         super.register(event);
         this.onRegisterContainer();
         this.onRegisterModels();
+        this.onRegisterRecipe();
     }
 
     public Collection<Block> getBlocks() {
         return this.blocks.stream().map(Pair::getRight).toList();
+    }
+
+    private void onRegisterRecipe() {
+        ForgeRegistries.RECIPE_TYPES.register(CircuitCutterRecipe.TYPE_ID, CircuitCutterRecipe.TYPE);
+        ForgeRegistries.RECIPE_SERIALIZERS.register(CircuitCutterRecipe.TYPE_ID, CircuitCutterRecipeSerializer.INSTANCE);
     }
 
     private void onRegisterContainer() {
@@ -138,6 +147,7 @@ public class EAERegistryHandler extends RegistryHandler {
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("threshold_export_bus"), ContainerThresholdExportBus.TYPE);
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("oversize_interface"), ContainerExInterface.TYPE_OVERSIZE);
         ForgeRegistries.MENU_TYPES.register(AppEng.makeId("assembler_matrix"), ContainerAssemblerMatrix.TYPE);
+        ForgeRegistries.MENU_TYPES.register(AppEng.makeId("circuit_cutter"), ContainerCircuitCutter.TYPE);
         ForgeRegistries.MENU_TYPES.register(ContainerProcessingPattern.ID, ContainerProcessingPattern.TYPE);
         ForgeRegistries.MENU_TYPES.register(ContainerCraftingPattern.ID, ContainerCraftingPattern.TYPE);
         ForgeRegistries.MENU_TYPES.register(ContainerStonecuttingPattern.ID, ContainerStonecuttingPattern.TYPE);
@@ -231,6 +241,7 @@ public class EAERegistryHandler extends RegistryHandler {
         Upgrades.add(AEItems.CAPACITY_CARD, EPPItemAndBlock.THRESHOLD_EXPORT_BUS, 5);
         Upgrades.add(AEItems.REDSTONE_CARD, EPPItemAndBlock.THRESHOLD_EXPORT_BUS, 1);
         Upgrades.add(AEItems.SPEED_CARD, EPPItemAndBlock.THRESHOLD_EXPORT_BUS, 4);
+        Upgrades.add(AEItems.SPEED_CARD, EPPItemAndBlock.CIRCUIT_CUTTER, 4);
     }
 
     private void registerStorageHandler() {
