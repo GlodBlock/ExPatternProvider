@@ -307,6 +307,10 @@ public class TileCrystalAssembler extends AENetworkedPoweredBlockEntity implemen
 
         @Override
         public boolean testRecipe(RecipeHolder<CrystalAssemblerRecipe> recipe) {
+            var output = recipe.value().output;
+            if (!this.host.output.insertItem(0, output, true).isEmpty()) {
+                return false;
+            }
             var sample = recipe.value().getSample();
             var copyInv = this.copyHostInv();
             for (var tester : sample) {

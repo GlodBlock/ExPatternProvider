@@ -303,6 +303,10 @@ public class TileCircuitCutter extends AENetworkedPoweredBlockEntity implements 
 
         @Override
         public boolean testRecipe(RecipeHolder<CircuitCutterRecipe> recipe) {
+            var output = recipe.value().output;
+            if (!this.host.output.insertItem(0, output, true).isEmpty()) {
+                return false;
+            }
             var sample = recipe.value().getSample();
             var copyInv = this.copyHostInv();
             for (var tester : sample) {
