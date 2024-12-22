@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
+    "#": {
+      "item": "ae2:silicon"
+    },
     "S": {
       "tag": "c:silicon"
     }
   },
   "pattern": [
     "SSS",
-    "SSS",
+    "S#S",
     "SSS"
   ],
   "result": {

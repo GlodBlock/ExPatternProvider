@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#c:silicon"
+            "items": "ae2:silicon"
           }
         ]
       },

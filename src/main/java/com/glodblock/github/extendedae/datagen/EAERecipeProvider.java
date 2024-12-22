@@ -545,15 +545,16 @@ public class EAERecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder
                 .shaped(RecipeCategory.MISC, EAESingletons.SILICON_BLOCK)
                 .pattern("SSS")
-                .pattern("SSS")
+                .pattern("S#S")
                 .pattern("SSS")
                 .define('S', ConventionTags.SILICON)
-                .unlockedBy(C, has(ConventionTags.SILICON))
+                .define('#', AEItems.SILICON)
+                .unlockedBy(C, has(AEItems.SILICON))
                 .save(c, ExtendedAE.id("silicon_block"));
         ShapelessRecipeBuilder
                 .shapeless(RecipeCategory.MISC, AEItems.SILICON, 9)
                 .requires(EAESingletons.SILICON_BLOCK)
-                .unlockedBy(C, has(EAETags.SILICON_BLOCK))
+                .unlockedBy(C, has(EAESingletons.SILICON_BLOCK))
                 .save(c, ExtendedAE.id("silicon_decompress"));
 
         // Circuit Cutter
