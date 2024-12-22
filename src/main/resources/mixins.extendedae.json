@@ -12,6 +12,7 @@
     "MixinAbstractContainerScreen",
     "MixinClearPatternAccessTerminalPacket",
     "MixinPatternAccessTerminalPacket",
+    "MixinRenderBlockOutlineHook",
     "MixinScreen"
   ],
   "server": []

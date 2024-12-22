@@ -9,6 +9,7 @@ import com.glodblock.github.extendedae.common.EAESingletons;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -88,7 +89,10 @@ public class ItemPackedDevice extends AEBaseItem {
                 if (placement != null) {
                     var part = PartPlacement.placePart(context.getPlayer(), world, partItem, null, placement.pos(), placement.side());
                     if (part != null) {
+                        var contents = data.context();
+                        contents.put("BYPASS_EXTENDEDAE", new CompoundTag());
                         part.readFromNBT(data.context(), world.registryAccess());
+                        part.addToWorld();
                         pack.shrink(1);
                         return InteractionResult.sidedSuccess(world.isClientSide);
                     } else {

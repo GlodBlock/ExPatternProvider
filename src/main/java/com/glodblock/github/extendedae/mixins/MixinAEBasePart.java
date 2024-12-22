@@ -16,13 +16,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class MixinAEBasePart {
 
     @Final
-    @Shadow
+    @Shadow(remap = false)
     private IManagedGridNode mainNode;
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract Level getLevel();
 
-    @Shadow
+    @Shadow(remap = false)
     private BlockEntity blockEntity;
 
     @Redirect(
