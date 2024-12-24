@@ -183,6 +183,15 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
         return super.getCapability(capability, facing);
     }
 
+    @SuppressWarnings("UnstableApiUsage")
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(Capability<T> capability) {
+        if (capability == Capabilities.GENERIC_INTERNAL_INV) {
+            return LazyOptional.of(() -> this.tank).cast();
+        }
+        return super.getCapability(capability);
+    }
+
     @Override
     protected boolean readFromStream(FriendlyByteBuf data) {
         super.readFromStream(data);
