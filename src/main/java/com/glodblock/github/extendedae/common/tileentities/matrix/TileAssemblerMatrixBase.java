@@ -236,7 +236,15 @@ public abstract class TileAssemblerMatrixBase extends AENetworkedBlockEntity imp
         if (this.getCluster() == null) {
             return new ChainedIterator<>();
         }
-        return Iterators.transform(this.getCluster().getBlockEntities(), TileAssemblerMatrixBase::getGridNode);
+        var nodes = new ArrayList<IGridNode>();
+        var it = this.getCluster().getBlockEntities();
+        while (it.hasNext()) {
+            var node = it.next().getGridNode();
+            if (node != null) {
+                nodes.add(node);
+            }
+        }
+        return nodes.iterator();
     }
 
 }
