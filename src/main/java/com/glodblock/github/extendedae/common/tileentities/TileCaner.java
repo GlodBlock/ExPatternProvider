@@ -22,6 +22,7 @@ import appeng.api.stacks.GenericStack;
 import appeng.api.stacks.KeyCounter;
 import appeng.blockentity.grid.AENetworkPowerBlockEntity;
 import appeng.crafting.pattern.AEProcessingPattern;
+import appeng.helpers.externalstorage.GenericStackFluidStorage;
 import appeng.helpers.externalstorage.GenericStackInv;
 import appeng.parts.automation.StackWorldBehaviors;
 import appeng.util.Platform;
@@ -40,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -145,9 +147,10 @@ public class TileCaner extends AENetworkPowerBlockEntity implements IGridTickabl
     public <T> @NotNull LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
         if (appeng.capabilities.Capabilities.CRAFTING_MACHINE == capability) {
             return appeng.capabilities.Capabilities.CRAFTING_MACHINE.orEmpty(capability, LazyOptional.of(() -> this));
-        }
-        if (capability == appeng.capabilities.Capabilities.GENERIC_INTERNAL_INV) {
-            return LazyOptional.of(() -> this.stuff).cast();
+        } else if (capability == appeng.capabilities.Capabilities.GENERIC_INTERNAL_INV) {
+            return LazyOptional.of(this::getStuff).cast();
+        } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
+            return LazyOptional.of(this::getStuff).lazyMap(GenericStackFluidStorage::new).cast();
         }
         return super.getCapability(capability, facing);
     }

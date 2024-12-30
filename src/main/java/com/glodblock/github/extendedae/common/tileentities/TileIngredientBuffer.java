@@ -3,6 +3,7 @@ package com.glodblock.github.extendedae.common.tileentities;
 import appeng.api.stacks.AEKeyType;
 import appeng.blockentity.AEBaseBlockEntity;
 import appeng.capabilities.Capabilities;
+import appeng.helpers.externalstorage.GenericStackFluidStorage;
 import appeng.helpers.externalstorage.GenericStackInv;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.xmod.ExternalTypes;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -75,7 +77,9 @@ public class TileIngredientBuffer extends AEBaseBlockEntity {
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
         if (capability == Capabilities.GENERIC_INTERNAL_INV) {
-            return LazyOptional.of(() -> this.buffer).cast();
+            return LazyOptional.of(this::getInventory).cast();
+        } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
+            return LazyOptional.of(this::getInventory).lazyMap(GenericStackFluidStorage::new).cast();
         }
         return super.getCapability(capability, facing);
     }

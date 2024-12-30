@@ -24,6 +24,7 @@ import appeng.blockentity.grid.AENetworkPowerBlockEntity;
 import appeng.capabilities.Capabilities;
 import appeng.core.definitions.AEItems;
 import appeng.core.settings.TickRates;
+import appeng.helpers.externalstorage.GenericStackFluidStorage;
 import appeng.helpers.externalstorage.GenericStackInv;
 import appeng.util.ConfigManager;
 import appeng.util.inv.AppEngInternalInventory;
@@ -48,6 +49,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
@@ -178,7 +180,9 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
         if (capability == Capabilities.GENERIC_INTERNAL_INV) {
-            return LazyOptional.of(() -> this.tank).cast();
+            return LazyOptional.of(this::getTank).cast();
+        } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
+            return LazyOptional.of(this::getTank).lazyMap(GenericStackFluidStorage::new).cast();
         }
         return super.getCapability(capability, facing);
     }
@@ -188,6 +192,8 @@ public class TileCircuitCutter extends AENetworkPowerBlockEntity implements IGri
     public <T> @NotNull LazyOptional<T> getCapability(Capability<T> capability) {
         if (capability == Capabilities.GENERIC_INTERNAL_INV) {
             return LazyOptional.of(() -> this.tank).cast();
+        } else if (capability == ForgeCapabilities.FLUID_HANDLER) {
+            return LazyOptional.of(this::getTank).lazyMap(GenericStackFluidStorage::new).cast();
         }
         return super.getCapability(capability);
     }
