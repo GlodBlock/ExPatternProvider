@@ -24,8 +24,8 @@ import com.glodblock.github.glodium.network.packet.sync.ActionMap;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import it.unimi.dsi.fastutil.Hash;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ReferenceMap;
-import it.unimi.dsi.fastutil.ints.Int2ReferenceOpenHashMap;
+import it.unimi.dsi.fastutil.longs.Long2ReferenceMap;
+import it.unimi.dsi.fastutil.longs.Long2ReferenceOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenCustomHashSet;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
@@ -53,7 +53,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
     private static final Rect2i EMPTY_ROW2 = new Rect2i(0, 219, 160, 18);
     private final ActionMap actions = ActionMap.create();
     private final Scrollbar scrollbar;
-    private final Int2ReferenceMap<PatternInfo> infos = new Int2ReferenceOpenHashMap<>();
+    private final Long2ReferenceMap<PatternInfo> infos = new Long2ReferenceOpenHashMap<>();
     private final Set<ItemStack> matchedStack = new ObjectOpenCustomHashSet<>(new Hash.Strategy<>() {
         @Override
         public int hashCode(ItemStack o) {
@@ -181,7 +181,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
         this.scrollbar.setRange(0, this.rows.size() - 4, 2);
     }
 
-    public void receiveUpdate(int id, Int2ObjectMap<ItemStack> updateMap) {
+    public void receiveUpdate(long id, Int2ObjectMap<ItemStack> updateMap) {
         var info = this.infos.computeIfAbsent(id, PatternInfo::new);
         for (var entry : updateMap.int2ObjectEntrySet()) {
             var row = info.getRowBySlot(entry.getIntKey());
@@ -193,7 +193,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
     private void refreshList() {
         this.rows.clear();
         this.matchedStack.clear();
-        for (var entry : this.infos.int2ReferenceEntrySet()) {
+        for (var entry : this.infos.long2ReferenceEntrySet()) {
             var info = entry.getValue();
             for (var row : info.internalRows) {
                 if (filterRows(row)) {
@@ -257,7 +257,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
 
         private final List<PatternRow> internalRows = new ArrayList<>();
 
-        PatternInfo(int id) {
+        PatternInfo(long id) {
             int left = TileAssemblerMatrixPattern.INV_SIZE;
             int offset = 0;
             do {
@@ -276,11 +276,11 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
     private static class PatternRow {
 
         private final AppEngInternalInventory inventory;
-        private final int id;
+        private final long id;
         private final int offset;
         private final int slots;
 
-        PatternRow(int patternID, int offset, int slots) {
+        PatternRow(long patternID, int offset, int slots) {
             this.id = patternID;
             this.offset = offset;
             this.slots = slots;

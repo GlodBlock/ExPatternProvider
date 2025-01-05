@@ -13,7 +13,6 @@ import com.glodblock.github.extendedae.common.EAESingletons;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixBase;
 import com.glodblock.github.extendedae.common.me.matrix.CalculatorAssemblerMatrix;
 import com.glodblock.github.extendedae.common.me.matrix.ClusterAssemblerMatrix;
-import com.google.common.collect.Iterators;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

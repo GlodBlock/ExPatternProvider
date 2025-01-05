@@ -17,8 +17,8 @@ import com.glodblock.github.glodium.network.packet.sync.ActionMap;
 import com.glodblock.github.glodium.network.packet.sync.IActionHolder;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.ints.Int2ReferenceMap;
-import it.unimi.dsi.fastutil.ints.Int2ReferenceOpenHashMap;
+import it.unimi.dsi.fastutil.longs.Long2ReferenceMap;
+import it.unimi.dsi.fastutil.longs.Long2ReferenceOpenHashMap;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
@@ -37,7 +37,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
 
     private final ActionMap actions = ActionMap.create();
     private final List<PatternSlotTracker> trackers = new ArrayList<>();
-    private final Int2ReferenceMap<PatternSlotTracker> trackerMap = new Int2ReferenceOpenHashMap<>();
+    private final Long2ReferenceMap<PatternSlotTracker> trackerMap = new Long2ReferenceOpenHashMap<>();
     private final TileAssemblerMatrixBase host;
     private int runningThreads = 0;
 
@@ -91,7 +91,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
 
     @Override
     public void doAction(ServerPlayer player, InventoryAction action, int slot, long id) {
-        var inv = this.trackerMap.get((int) id);
+        var inv = this.trackerMap.get(id);
         if (inv == null) {
             return;
         }

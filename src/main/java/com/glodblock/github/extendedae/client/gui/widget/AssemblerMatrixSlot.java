@@ -8,13 +8,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class AssemblerMatrixSlot extends AppEngSlot {
 
-    private final AppEngInternalInventory machineInv;
-    private final int id;
+    private final long id;
     private final int offset;
 
-    public AssemblerMatrixSlot(AppEngInternalInventory machineInv, int machineInvSlot, int offset, int id, int x, int y) {
+    public AssemblerMatrixSlot(AppEngInternalInventory machineInv, int machineInvSlot, int offset, long id, int x, int y) {
         super(machineInv, machineInvSlot);
-        this.machineInv = machineInv;
         this.id = id;
         this.offset = offset;
         this.x = x;
@@ -25,7 +23,7 @@ public class AssemblerMatrixSlot extends AppEngSlot {
         return this.getSlotIndex() + this.offset;
     }
 
-    public int getID() {
+    public long getID() {
         return this.id;
     }
 
@@ -46,10 +44,6 @@ public class AssemblerMatrixSlot extends AppEngSlot {
     @Override
     public boolean hasItem() {
         return !this.getItem().isEmpty();
-    }
-
-    public AppEngInternalInventory getMachineInv() {
-        return this.machineInv;
     }
 
     @Override

@@ -36,7 +36,6 @@ public class TileAssemblerMatrixPattern extends TileAssemblerMatrixFunction impl
     private final static FreqGenerator<Integer> G = FreqGenerator.createInt();
     private final AppEngInternalInventory patternInventory;
     private final List<IPatternDetails> patterns = new ArrayList<>();
-    private int locateID = 0;
 
     public TileAssemblerMatrixPattern(BlockPos pos, BlockState blockState) {
         super(GlodUtil.getTileType(TileAssemblerMatrixPattern.class, TileAssemblerMatrixPattern::new, EAESingletons.ASSEMBLER_MATRIX_PATTERN), pos, blockState);
@@ -61,11 +60,8 @@ public class TileAssemblerMatrixPattern extends TileAssemblerMatrixFunction impl
         return this.patternInventory;
     }
 
-    public int getLocateID() {
-        if (this.locateID == 0) {
-            this.locateID = G.genFreq();
-        }
-        return this.locateID;
+    public long getLocateID() {
+        return this.worldPosition.asLong();
     }
 
     public void updatePatterns() {
