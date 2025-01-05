@@ -135,6 +135,11 @@ public class TileAssemblerMatrixPattern extends TileAssemblerMatrixFunction impl
     }
 
     @Override
+    public long getTerminalSortOrder() {
+        return this.getLocateID();
+    }
+
+    @Override
     public PatternContainerGroup getTerminalGroup() {
         var icon = AEItemKey.of(EAESingletons.ASSEMBLER_MATRIX_PATTERN);
         return new PatternContainerGroup(icon, icon.getDisplayName(), List.of(Component.translatable("gui.extendedae.assembler_matrix.pattern")));

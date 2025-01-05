@@ -214,7 +214,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
         this.searchMode.setPosition(this.leftPos + 73, this.topPos + 17);
         addRenderableWidget(this.searchMode);
 
-        // numLines may have changed, recalculate scroll bar.
+        // numLines may have changed, and recalculate scroll bar.
         this.resetScrollbar();
     }
 

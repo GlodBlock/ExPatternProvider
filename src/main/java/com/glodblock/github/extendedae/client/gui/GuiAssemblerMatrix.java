@@ -193,8 +193,8 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
     private void refreshList() {
         this.rows.clear();
         this.matchedStack.clear();
-        for (var entry : this.infos.long2ReferenceEntrySet()) {
-            var info = entry.getValue();
+        for (var id : this.getSortedInfo()) {
+            var info = this.infos.get(id);
             for (var row : info.internalRows) {
                 if (filterRows(row)) {
                     this.rows.add(row);
@@ -245,6 +245,10 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
             }
         }
         return false;
+    }
+
+    private long[] getSortedInfo() {
+        return this.infos.keySet().longStream().sorted().toArray();
     }
 
     @NotNull
