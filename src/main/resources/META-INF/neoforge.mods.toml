@@ -48,6 +48,6 @@ license="${mod_license}"
 [[dependencies.extendedae]]
     modId="ae2wtlib"
     type="OPTIONAL"
-    versionRange="[19.1.0-alpha.1,)"
+    versionRange="[19.2.0,)"
     ordering="AFTER"
     side="BOTH"

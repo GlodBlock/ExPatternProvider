@@ -4,6 +4,7 @@ import appeng.api.config.Settings;
 import appeng.api.config.ShowPatternProviders;
 import appeng.api.util.IConfigManager;
 import appeng.menu.locator.ItemMenuHostLocator;
+import de.mari_023.ae2wtlib.api.terminal.AE2wtlibConfigManager;
 import de.mari_023.ae2wtlib.api.terminal.ItemWT;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -24,7 +25,7 @@ public class ItemWirelessExPAT extends ItemWT {
 
     @Override
     public @NotNull IConfigManager getConfigManager(@NotNull Supplier<ItemStack> target) {
-        return IConfigManager.builder(target)
+        return AE2wtlibConfigManager.builder(target)
                 .registerSetting(Settings.TERMINAL_SHOW_PATTERN_PROVIDERS, ShowPatternProviders.VISIBLE)
                 .build();
     }
