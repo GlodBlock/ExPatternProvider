@@ -1,16 +1,21 @@
 package com.glodblock.github.extendedae.config;
 
+import appeng.api.stacks.AEKey;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntImmutableList;
 import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @EventBusSubscriber(modid = ExtendedAE.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -60,6 +65,14 @@ public class EAEConfig {
             .comment("Size multiplier of oversize interface")
             .defineInRange("device.oversize_interface_multiplier", 16, 2, 4096);
 
+    @SuppressWarnings("deprecation")
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> CUSTOM_OVERSIZE_MULTIPLIER = BUILDER
+            .comment("Set multiplier for specific AEKeyType in oversize interface")
+            .defineList("device.custom_oversize_interface_multiplier", Lists.newArrayList(
+                    "appbot:mana 2",
+                    "appflux:flux 4"
+            ), o -> true);
+
     private static final ModConfigSpec.BooleanValue CRYSTAL_INSCRIBER = BUILDER
             .comment("Allow Crystal Assembler to do processor inscriber recipes")
             .define("device.enable_crystal_assembler_inscribe_processors", true);
@@ -79,7 +92,8 @@ public class EAEConfig {
     public static double wirelessMaxRange;
     public static List<ResourceLocation> tapeWhitelist;
     public static boolean disableInscriberRender;
-    public static int oversizeMultiplier;
+    private static int oversizeMultiplier;
+    private static Map<ResourceLocation, Integer> customOversizeMultiplier;
     private static List<? extends Integer> modifierMultiplier;
     public static boolean allowAssemblerCircuits;
     public static int assemblerMatrixSize;
@@ -92,8 +106,12 @@ public class EAEConfig {
         }
     }
 
+    public static int getOversizeMultiplier(AEKey key) {
+        return customOversizeMultiplier.getOrDefault(key.getType().getId(), oversizeMultiplier);
+    }
+
     @SubscribeEvent
-    static void onLoad(final ModConfigEvent event) {
+    public static void onLoad(final ModConfigEvent event) {
         if (event.getConfig().getSpec() == SPEC) {
             busSpeed = EX_BUS_SPEED.get();
             infCellCost = INFINITY_CELL_ENERGY.get();
@@ -101,9 +119,23 @@ public class EAEConfig {
             tapeWhitelist = PACKABLE_AE_DEVICE.get().stream().map(ResourceLocation::parse).collect(Collectors.toList());
             disableInscriberRender = INSCRIBER_RENDER.get();
             oversizeMultiplier = OVERSIZE_MULTIPLIER.get();
+            customOversizeMultiplier = new Object2IntOpenHashMap<>();
+            CUSTOM_OVERSIZE_MULTIPLIER.get().stream()
+                    .map(EAEConfig::parseOversizeMultiplier)
+                    .filter(Objects::nonNull)
+                    .forEach(p -> customOversizeMultiplier.put(p.getKey(), p.getValue()));
             modifierMultiplier = PATTERN_MODIFIER_NUMBER.get();
             allowAssemblerCircuits = CRYSTAL_INSCRIBER.get();
             assemblerMatrixSize = ASSEMBLER_MATRIX_SIZE.get();
+        }
+    }
+
+    private static Pair<ResourceLocation, Integer> parseOversizeMultiplier(String s) {
+        try {
+            var pair = s.split(" ");
+            return Pair.of(ResourceLocation.parse(pair[0]), Integer.decode(pair[1]));
+        } catch (Throwable t) {
+            return null;
         }
     }
 

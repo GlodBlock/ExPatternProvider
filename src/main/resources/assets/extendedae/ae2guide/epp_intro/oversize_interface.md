@@ -19,5 +19,7 @@ item_ids:
 </GameScene>
 </Row>
 
-ME Oversize Interface has the same amount of slots as <ItemLink id="extendedae:ex_interface" />, but it can hold x16 time (configurable) more
+ME Oversize Interface has the same number of slots as <ItemLink id="extendedae:ex_interface" />, but it can hold x16 time (configurable) more
 items per slot. It means it can hold 1024 (64x16) items per slot.
+
+Certain stuff from other mods can have specific multiplier by config.
