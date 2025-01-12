@@ -104,7 +104,7 @@ repositories {
 dependencies {
     implementation "curse.maven:glodium-957920:5821676"
     implementation "appeng:appliedenergistics2:19.1.1-beta"
-    jarJar(implementation "de.mari_023:ae2wtlib_api:19.1.0-alpha.1")
+    jarJar(implementation "de.mari_023:ae2wtlib_api:19.2.0")
     compileOnly "curse.maven:applied-flux-965012:5614830"
     compileOnly "dev.emi:emi-neoforge:1.1.10+1.21"
     compileOnly "curse.maven:mega-cells-622112:6005043"
@@ -115,7 +115,7 @@ dependencies {
     compileOnly "dev.latvian.mods:kubejs-neoforge:2101.7.0-build.171"
     // runtime test
     runtimeOnly "curse.maven:applied-flux-965012:5614830"
-    runtimeOnly "de.mari_023:ae2wtlib:19.1.0-alpha.1"
+    runtimeOnly "de.mari_023:ae2wtlib:19.2.0"
     runtimeOnly "curse.maven:jade-324717:5427817"
     runtimeOnly "curse.maven:mega-cells-622112:6005043"
     // setup Xei
