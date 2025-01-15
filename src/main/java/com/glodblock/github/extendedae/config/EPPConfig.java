@@ -1,5 +1,6 @@
 package com.glodblock.github.extendedae.config;
 
+import appeng.api.stacks.AEKey;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.util.FCUtil;
 import com.google.common.collect.Lists;
@@ -11,9 +12,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = ExtendedAE.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -59,6 +63,13 @@ public class EPPConfig {
             .comment("Size multiplier of oversize interface")
             .defineInRange("device.oversize_interface_multiplier", 16, 2, 4096);
 
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> CUSTOM_OVERSIZE_MULTIPLIER = BUILDER
+            .comment("Set multiplier for specific AEKeyType in oversize interface")
+            .defineList("device.custom_oversize_interface_multiplier", Lists.newArrayList(
+                    "appbot:mana 2",
+                    "appflux:flux 4"
+            ), o -> true);
+
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
     private static boolean checkRL(Object o) {
@@ -72,7 +83,12 @@ public class EPPConfig {
     public static List<Item> infCellItem;
     public static List<ResourceLocation> tapeWhitelist;
     public static boolean disableInscriberRender;
-    public static int oversizeMultiplier;
+    private static int oversizeMultiplier;
+    private static Map<ResourceLocation, Integer> customOversizeMultiplier;
+
+    public static int getOversizeMultiplier(AEKey key) {
+        return customOversizeMultiplier.getOrDefault(key.getType().getId(), oversizeMultiplier);
+    }
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
@@ -93,6 +109,19 @@ public class EPPConfig {
         tapeWhitelist = PACKABLE_AE_DEVICE.get().stream().map(ResourceLocation::new).collect(Collectors.toList());
         disableInscriberRender = INSCRIBER_RENDER.get();
         oversizeMultiplier = OVERSIZE_MULTIPLIER.get();
+        CUSTOM_OVERSIZE_MULTIPLIER.get().stream()
+                .map(EPPConfig::parseOversizeMultiplier)
+                .filter(Objects::nonNull)
+                .forEach(p -> customOversizeMultiplier.put(p.getKey(), p.getValue()));
+    }
+
+    private static Pair<ResourceLocation, Integer> parseOversizeMultiplier(String s) {
+        try {
+            var pair = s.split(" ");
+            return Pair.of(new ResourceLocation(pair[0]), Integer.decode(pair[1]));
+        } catch (Throwable t) {
+            return null;
+        }
     }
 
 }

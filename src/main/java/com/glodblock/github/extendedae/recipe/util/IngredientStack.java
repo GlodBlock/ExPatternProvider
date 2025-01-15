@@ -73,7 +73,6 @@ public abstract class IngredientStack<T> {
             if (from > this.amount) {
                 this.setStackAmount((T) stack, from - this.amount);
                 this.amount = 0;
-
             } else {
                 this.setStackAmount((T) stack, 0);
                 this.amount -= from;

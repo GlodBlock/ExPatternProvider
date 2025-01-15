@@ -81,7 +81,7 @@ public class PartOversizeInterface extends PartExInterface {
         @Override
         public long getMaxAmount(AEKey key) {
             try {
-                return Math.multiplyExact(super.getMaxAmount(key), EPPConfig.oversizeMultiplier);
+                return Math.multiplyExact(super.getMaxAmount(key), EPPConfig.getOversizeMultiplier(key));
             } catch (Exception e) {
                 return Long.MAX_VALUE;
             }
