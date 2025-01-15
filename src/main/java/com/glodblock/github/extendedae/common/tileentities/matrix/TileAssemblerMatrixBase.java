@@ -3,6 +3,7 @@ package com.glodblock.github.extendedae.common.tileentities.matrix;
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.implementations.IPowerChannelState;
+import appeng.api.inventories.InternalInventory;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGridMultiblock;
 import appeng.api.networking.IGridNode;
@@ -12,6 +13,7 @@ import appeng.api.util.IConfigManager;
 import appeng.blockentity.grid.AENetworkBlockEntity;
 import appeng.me.cluster.IAEMultiBlock;
 import appeng.util.ConfigManager;
+import appeng.util.inv.CombinedInternalInventory;
 import appeng.util.iterators.ChainedIterator;
 import com.glodblock.github.extendedae.common.EPPItemAndBlock;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixBase;
@@ -26,10 +28,18 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.EmptyHandler;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public abstract class TileAssemblerMatrixBase extends AENetworkBlockEntity implements IAEMultiBlock<ClusterAssemblerMatrix>, IPowerChannelState {
@@ -241,6 +251,26 @@ public abstract class TileAssemblerMatrixBase extends AENetworkBlockEntity imple
             return EPPItemAndBlock.ASSEMBLER_MATRIX_FRAME;
         }
         return (BlockAssemblerMatrixBase<?>) this.level.getBlockState(this.worldPosition).getBlock();
+    }
+
+    private IItemHandler getPatternInv() {
+        if (this.cluster == null) {
+            return EmptyHandler.INSTANCE;
+        }
+        var inv = new ArrayList<InternalInventory>();
+        for (var pc : this.cluster.getPatterns()) {
+            inv.add(pc.getExposedInventory());
+        }
+        return new CombinedInternalInventory(inv.toArray(new InternalInventory[0])).toItemHandler();
+    }
+
+    @Override
+    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER) {
+            return LazyOptional.of(this::getPatternInv).cast();
+        } else {
+            return super.getCapability(capability, facing);
+        }
     }
 
     private Iterator<IGridNode> getMultiblockNodes() {
