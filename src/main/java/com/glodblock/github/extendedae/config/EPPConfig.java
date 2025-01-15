@@ -4,6 +4,7 @@ import appeng.api.stacks.AEKey;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.util.FCUtil;
 import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
@@ -109,6 +110,7 @@ public class EPPConfig {
         tapeWhitelist = PACKABLE_AE_DEVICE.get().stream().map(ResourceLocation::new).collect(Collectors.toList());
         disableInscriberRender = INSCRIBER_RENDER.get();
         oversizeMultiplier = OVERSIZE_MULTIPLIER.get();
+        customOversizeMultiplier = new Object2IntOpenHashMap<>();
         CUSTOM_OVERSIZE_MULTIPLIER.get().stream()
                 .map(EPPConfig::parseOversizeMultiplier)
                 .filter(Objects::nonNull)

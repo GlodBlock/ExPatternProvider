@@ -1,5 +1,7 @@
 package com.glodblock.github.extendedae.common.tileentities.matrix;
 
+import appeng.api.config.Settings;
+import appeng.api.config.YesNo;
 import appeng.api.crafting.IPatternDetails;
 import appeng.api.crafting.PatternDetailsHelper;
 import appeng.api.implementations.blockentities.PatternContainerGroup;
@@ -129,6 +131,11 @@ public class TileAssemblerMatrixPattern extends TileAssemblerMatrixFunction impl
     @Override
     public InternalInventory getTerminalPatternInventory() {
         return this.patternInventory;
+    }
+
+    @Override
+    public boolean isVisibleInTerminal() {
+        return this.manager.getSetting(Settings.PATTERN_ACCESS_TERMINAL) == YesNo.YES;
     }
 
     @Override
