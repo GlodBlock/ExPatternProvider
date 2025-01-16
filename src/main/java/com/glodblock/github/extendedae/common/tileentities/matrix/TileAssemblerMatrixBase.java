@@ -3,6 +3,7 @@ package com.glodblock.github.extendedae.common.tileentities.matrix;
 import appeng.api.config.Settings;
 import appeng.api.config.YesNo;
 import appeng.api.implementations.IPowerChannelState;
+import appeng.api.inventories.InternalInventory;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGridMultiblock;
 import appeng.api.networking.IGridNode;
@@ -12,6 +13,7 @@ import appeng.api.util.IConfigManager;
 import appeng.blockentity.grid.AENetworkedBlockEntity;
 import appeng.me.cluster.IAEMultiBlock;
 import appeng.util.ConfigManager;
+import appeng.util.inv.CombinedInternalInventory;
 import appeng.util.iterators.ChainedIterator;
 import com.glodblock.github.extendedae.common.EAESingletons;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixBase;
@@ -27,6 +29,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -185,6 +189,18 @@ public abstract class TileAssemblerMatrixBase extends AENetworkedBlockEntity imp
             return this.getMainNode().isActive();
         }
         return this.isPowered() && this.isFormed();
+    }
+
+    @Nullable
+    public IItemHandler getPatternInv(Direction side) {
+        if (this.cluster == null) {
+            return null;
+        }
+        var inv = new ArrayList<InternalInventory>();
+        for (var pc : this.cluster.getPatterns()) {
+            inv.add(pc.getExposedInventory());
+        }
+        return new CombinedInternalInventory(inv.toArray(new InternalInventory[0])).toItemHandler();
     }
 
     public void updateStatus(ClusterAssemblerMatrix c) {
