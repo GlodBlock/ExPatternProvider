@@ -45,9 +45,9 @@ public class GuiExInscriber extends UpgradeableScreen<ContainerExInscriber> {
         this.next.setMessage(Component.translatable("gui.extendedae.ex_inscriber.next"));
         this.pre.setMessage(Component.translatable("gui.extendedae.ex_inscriber.pre"));
         CycleEPPButton stackChange = new CycleEPPButton();
-        stackChange.addActionPair(Icon.INSCRIBER_BUFFER_64.getBlitter(), Component.translatable("gui.extendedae.ex_inscriber.stackable"), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("stack", 1)));
-        stackChange.addActionPair(Icon.INSCRIBER_BUFFER_1.getBlitter(), Component.translatable("gui.extendedae.ex_inscriber.unstackable"), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("stack", 4)));
-        stackChange.addActionPair(Icon.INSCRIBER_BUFFER_4.getBlitter(), Component.translatable("gui.extendedae.ex_inscriber.fourstackable"), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("stack", 64)));
+        stackChange.addActionPair(Icon.INSCRIBER_BUFFER_64, Component.translatable("gui.extendedae.ex_inscriber.stackable"), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("stack", 1)));
+        stackChange.addActionPair(Icon.INSCRIBER_BUFFER_1, Component.translatable("gui.extendedae.ex_inscriber.unstackable"), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("stack", 4)));
+        stackChange.addActionPair(Icon.INSCRIBER_BUFFER_4, Component.translatable("gui.extendedae.ex_inscriber.fourstackable"), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("stack", 64)));
         stackChange.setState(this.menu.getStackMode());
         addToLeftToolbar(stackChange);
         addToLeftToolbar(this.next);

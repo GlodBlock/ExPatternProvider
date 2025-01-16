@@ -1,12 +1,15 @@
 package com.glodblock.github.extendedae.common.me.matrix;
 
+import appeng.api.config.Setting;
 import appeng.api.crafting.IPatternDetails;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionSource;
 import appeng.api.stacks.KeyCounter;
+import appeng.api.util.IConfigManager;
 import appeng.me.cluster.IAECluster;
 import appeng.me.cluster.MBCalculator;
 import appeng.me.helpers.MachineSource;
+import appeng.util.NullConfigManager;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixBase;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixFunction;
@@ -33,6 +36,7 @@ public class ClusterAssemblerMatrix implements IAECluster {
     private Component myName = null;
     private final List<TileAssemblerMatrixBase> tiles = new ArrayList<>();
     private MachineSource machineSrc = null;
+    private IConfigManager manager = NullConfigManager.INSTANCE;
     private final List<TileAssemblerMatrixPattern> patterns = new ArrayList<>();
     private final ReferenceSet<TileAssemblerMatrixCrafter> availableCrafters = new ReferenceOpenHashSet<>();
     private final ReferenceSet<TileAssemblerMatrixCrafter> busyCrafters = new ReferenceOpenHashSet<>();
@@ -60,6 +64,10 @@ public class ClusterAssemblerMatrix implements IAECluster {
 
     public int getSpeedCore() {
         return this.speedCore;
+    }
+
+    public IConfigManager getConfigManager() {
+        return this.manager;
     }
 
     public int getBusyCrafterAmount() {
@@ -114,7 +122,21 @@ public class ClusterAssemblerMatrix implements IAECluster {
         if (core.getPreviousState() != null) {
             core.setPreviousState(null);
         }
+        this.manager = core.getConfigManager();
+        for (var setting : this.manager.getSettings()) {
+            this.broadcastConfig(setting, this.manager.getSetting(setting), core);
+        }
         this.updateName();
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends Enum<T>> void broadcastConfig(Setting<?> setting, T newValue, @Nullable TileAssemblerMatrixBase ignore) {
+        for (var te : this.tiles) {
+            if (ignore == te) {
+                continue;
+            }
+            te.getConfigManager().putSetting((Setting<T>) setting, newValue);
+        }
     }
 
     @Nullable

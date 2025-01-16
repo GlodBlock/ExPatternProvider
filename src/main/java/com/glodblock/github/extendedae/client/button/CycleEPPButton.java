@@ -1,5 +1,6 @@
 package com.glodblock.github.extendedae.client.button;
 
+import appeng.client.gui.Icon;
 import appeng.client.gui.style.Blitter;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +17,10 @@ public class CycleEPPButton extends EPPButton {
 
     public CycleEPPButton() {
         super(b -> {});
+    }
+
+    public void addActionPair(Icon icon, Component tooltip, OnPress action) {
+        this.addActionPair(icon.getBlitter(), tooltip, action);
     }
 
     public void addActionPair(Blitter icon, Component tooltip, OnPress action) {

@@ -1,5 +1,6 @@
 package com.glodblock.github.extendedae.client.gui;
 
+import appeng.api.config.YesNo;
 import appeng.api.crafting.IPatternDetails;
 import appeng.api.crafting.PatternDetailsHelper;
 import appeng.client.gui.AEBaseScreen;
@@ -15,6 +16,7 @@ import appeng.crafting.pattern.EncodedPatternItem;
 import appeng.helpers.InventoryAction;
 import appeng.util.inv.AppEngInternalInventory;
 import com.glodblock.github.extendedae.client.button.ActionEPPButton;
+import com.glodblock.github.extendedae.client.button.CycleEPPButton;
 import com.glodblock.github.extendedae.client.gui.widget.AssemblerMatrixSlot;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
 import com.glodblock.github.extendedae.container.ContainerAssemblerMatrix;
@@ -68,6 +70,7 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
     private final ArrayList<PatternRow> rows = new ArrayList<>();
     private final AETextField searchField;
     private int runningThreads = 0;
+    private final CycleEPPButton patternShowBtn = new CycleEPPButton();
 
     public GuiAssemblerMatrix(ContainerAssemblerMatrix menu, Inventory playerInventory, Component title, ScreenStyle style) {
         super(menu, playerInventory, title, style);
@@ -77,9 +80,13 @@ public class GuiAssemblerMatrix extends AEBaseScreen<ContainerAssemblerMatrix> i
         this.searchField.setPlaceholder(GuiText.SearchPlaceholder.text());
         this.searchField.setTooltipMessage(Collections.singletonList(Component.translatable("gui.extendedae.assembler_matrix.tooltip")));
         this.actions.put("running_update", o -> this.runningThreads = o.get(0));
+        this.actions.put("pattern_mode_update", o -> this.patternShowBtn.setState(o.get(0)));
         var cancel = new ActionEPPButton(b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("cancel")), Icon.CLEAR);
         cancel.setMessage(Component.translatable("gui.extendedae.assembler_matrix.cancel"));
+        this.patternShowBtn.addActionPair(Icon.PATTERN_ACCESS_SHOW, GuiText.PatternAccessTerminalHint.text(), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("pattern_mode", YesNo.NO.name())));
+        this.patternShowBtn.addActionPair(Icon.PATTERN_ACCESS_HIDE, GuiText.PatternAccessTerminalHint.text(), b -> EAENetworkHandler.INSTANCE.sendToServer(new CEAEGenericPacket("pattern_mode", YesNo.YES.name())));
         addToLeftToolbar(cancel);
+        addToLeftToolbar(patternShowBtn);
     }
 
     @Override

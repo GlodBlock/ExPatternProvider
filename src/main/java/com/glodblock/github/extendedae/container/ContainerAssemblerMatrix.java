@@ -1,5 +1,7 @@
 package com.glodblock.github.extendedae.container;
 
+import appeng.api.config.Settings;
+import appeng.api.config.YesNo;
 import appeng.api.inventories.InternalInventory;
 import appeng.helpers.InventoryAction;
 import appeng.menu.AEBaseMenu;
@@ -40,13 +42,22 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
     private final Long2ReferenceMap<PatternSlotTracker> trackerMap = new Long2ReferenceOpenHashMap<>();
     private final TileAssemblerMatrixBase host;
     private int runningThreads = 0;
+    private int patternMode = 0;
 
     public ContainerAssemblerMatrix(int id, Inventory playerInventory, TileAssemblerMatrixBase host) {
         super(TYPE, id, playerInventory, host);
         this.actions.put("cancel", o -> cancel());
+        this.actions.put("pattern_mode", o -> setPatternShowMode(o.get(0)));
         this.host = host;
         this.setupPatternInventory();
         this.createPlayerInventorySlots(playerInventory);
+    }
+
+    private void setPatternShowMode(String mode) {
+        try {
+            this.host.getCluster().broadcastConfig(Settings.PATTERN_ACCESS_TERMINAL, YesNo.valueOf(mode), null);
+        } catch (Throwable ignored) {
+        }
     }
 
     private void cancel() {
@@ -192,6 +203,11 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
             if (this.runningThreads != newRunningThreads) {
                 this.runningThreads = newRunningThreads;
                 EAENetworkHandler.INSTANCE.sendTo(new SEAEGenericPacket("running_update", newRunningThreads), player);
+            }
+            int newPatternMode = this.getHost().getConfigManager().getSetting(Settings.PATTERN_ACCESS_TERMINAL).ordinal();
+            if (this.patternMode != newPatternMode) {
+                this.patternMode = newPatternMode;
+                EAENetworkHandler.INSTANCE.sendTo(new SEAEGenericPacket("pattern_mode_update", newPatternMode), player);
             }
         }
     }
