@@ -13,9 +13,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SingleThreadedRandomSource;
@@ -94,6 +97,11 @@ public class WorldDisplay extends AbstractWidget {
 
     public void refreshBounds() {
         this.bounds = new LytRect(getX(), getY(), this.width, this.height);
+    }
+
+    @Override
+    public void playDownSound(@NotNull SoundManager manager) {
+        // NO-OP
     }
 
     @Override
