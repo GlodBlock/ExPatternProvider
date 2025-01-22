@@ -24,7 +24,7 @@ import appeng.util.ConfigInventory;
 import appeng.util.SettingsFrom;
 import com.glodblock.github.extendedae.ExtendedAE;
 import com.glodblock.github.extendedae.container.ContainerThresholdLevelEmitter;
-import com.glodblock.github.extendedae.util.Ae2Reflect;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -44,6 +44,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
             new ResourceLocation(AppEng.MOD_ID, "part/level_emitter_status_on"),
             new ResourceLocation(AppEng.MOD_ID, "part/level_emitter_status_has_channel")
     );
+    public static final DustParticleOptions BLUE = new DustParticleOptions(Vec3.fromRGB24(0x0000ff).toVector3f(), 1.0F);
 
     public static final PartModel MODEL_OFF_OFF = new PartModel(MODELS.get(0), MODELS.get(2));
     public static final PartModel MODEL_OFF_ON = new PartModel(MODELS.get(0), MODELS.get(3));
@@ -58,6 +59,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
     private long lastUpdateTick = -1;
     private long upperValue;
     private long lowerValue;
+    private boolean currentState = false;
 
     public PartThresholdLevelEmitter(IPartItem<?> partItem) {
         super(partItem);
@@ -168,7 +170,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
     }
 
     public boolean checkState(long value, boolean invert) {
-        boolean current = invert != Ae2Reflect.getPrevState(this);
+        boolean current = invert != this.currentState;
         if (current) {
             return value >= this.lowerValue;
         } else {
@@ -192,7 +194,12 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
 
         final boolean flipState = this.getConfigManager().getSetting(Settings.REDSTONE_EMITTER) == RedstoneMode.LOW_SIGNAL;
         final boolean active = this.checkState(this.lastReportedValue, flipState);
-        return flipState != active;
+        boolean newState = flipState != active;
+        if (newState != this.currentState) {
+            this.currentState = newState;
+            this.getHost().markForSave();
+        }
+        return this.currentState;
     }
 
     private void updateReportingValue(IGrid grid) {
@@ -254,6 +261,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
         super.readFromNBT(data);
         this.upperValue = data.getLong("upperValue");
         this.lowerValue = data.getLong("lowerValue");
+        this.currentState = data.getBoolean("currentState");
         this.config.readFromChildTag(data, "config");
     }
 
@@ -262,6 +270,7 @@ public class PartThresholdLevelEmitter extends AbstractLevelEmitterPart implemen
         super.writeToNBT(data);
         data.putLong("upperValue", this.upperValue);
         data.putLong("lowerValue", this.lowerValue);
+        data.putBoolean("currentState", this.currentState);
         this.config.writeToChildTag(data, "config");
     }
 
