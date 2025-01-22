@@ -36,8 +36,9 @@ public class TileIngredientBuffer extends AEBaseBlockEntity {
         if (ExternalTypes.MANA != null) {
             this.buffer.setCapacity(ExternalTypes.MANA, 1000);
         }
+        // Disable FE
         if (ExternalTypes.FLUX != null) {
-            this.buffer.setCapacity(ExternalTypes.FLUX, 10000);
+            this.buffer.setCapacity(ExternalTypes.FLUX, 0);
         }
         if (ExternalTypes.SOURCE != null) {
             this.buffer.setCapacity(ExternalTypes.SOURCE, 1000);

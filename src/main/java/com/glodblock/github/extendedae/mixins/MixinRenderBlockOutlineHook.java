@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RenderBlockOutlineHook.class)
 public abstract class MixinRenderBlockOutlineHook {
 
-    @Shadow
+    @Shadow(remap = false)
     private static void renderPart(PoseStack poseStack, MultiBufferSource buffers, Camera camera, BlockPos pos, IPart part, Direction side, boolean preview, boolean insideBlock) {
     }
 
