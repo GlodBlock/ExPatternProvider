@@ -92,18 +92,19 @@ repositories {
             includeGroup "dev.architectury"
         }
     }
-
     maven {
         url = "https://maven.saps.dev/minecraft"
         content {
             includeGroup "dev.latvian.mods"
         }
     }
+    mavenCentral()
 }
 
 dependencies {
     implementation "curse.maven:glodium-957920:5821676"
-    implementation "appeng:appliedenergistics2:19.1.1-beta"
+    implementation "org.appliedenergistics:appliedenergistics2:19.2.1-beta"
+    implementation "org.appliedenergistics:guideme:2.5.1"
     jarJar(implementation "de.mari_023:ae2wtlib_api:19.2.0")
     compileOnly "curse.maven:applied-flux-965012:5614830"
     compileOnly "dev.emi:emi-neoforge:1.1.10+1.21"

@@ -30,8 +30,13 @@ license="${mod_license}"
 [[dependencies.extendedae]]
     modId="ae2"
     type="REQUIRED"
-    versionRange="[19.0.20-beta,)"
+    versionRange="[19.2.0-beta,)"
     ordering="AFTER"
+    side="BOTH"
+[[dependencies.extendedae]]
+    modId="guideme"
+    type="REQUIRED"
+    versionRange="*"
     side="BOTH"
 [[dependencies.extendedae]]
     modId="glodium"
