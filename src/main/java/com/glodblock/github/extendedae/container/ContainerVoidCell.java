@@ -22,7 +22,7 @@ public class ContainerVoidCell extends AEBaseMenu implements IActionHolder {
 
     public static final MenuType<ContainerVoidCell> TYPE = MenuTypeBuilder
             .create(ContainerVoidCell::new, ItemMenuHost.class)
-            .build(ExtendedAE.id("void_cell"));
+            .buildUnregistered(ExtendedAE.id("void_cell"));
     private final ActionMap actions = ActionMap.create();
     private final ItemStack stack;
     @GuiSync(1)

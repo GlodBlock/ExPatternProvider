@@ -22,7 +22,7 @@ public class ContainerCaner extends AEBaseMenu implements IActionHolder {
 
     public static final MenuType<ContainerCaner> TYPE = MenuTypeBuilder
             .create(ContainerCaner::new, TileCaner.class)
-            .build(ExtendedAE.id("caner"));
+            .buildUnregistered(ExtendedAE.id("caner"));
 
     private final ActionMap actions = ActionMap.create();
     @GuiSync(0)

@@ -14,11 +14,11 @@ public class ContainerExIOBus extends UpgradeableMenu<IOBusPart> {
 
     public static final MenuType<ContainerExIOBus> EXPORT_TYPE = MenuTypeBuilder
             .create(ContainerExIOBus::new, PartExExportBus.class)
-            .build(ExtendedAE.id("ex_export_bus"));
+            .buildUnregistered(ExtendedAE.id("ex_export_bus"));
 
     public static final MenuType<ContainerExIOBus> IMPORT_TYPE = MenuTypeBuilder
             .create(ContainerExIOBus::new, PartExImportBus.class)
-            .build(ExtendedAE.id("ex_import_bus"));
+            .buildUnregistered(ExtendedAE.id("ex_import_bus"));
 
     public ContainerExIOBus(MenuType<?> menuType, int id, Inventory ip, IOBusPart host) {
         super(menuType, id, ip, host);

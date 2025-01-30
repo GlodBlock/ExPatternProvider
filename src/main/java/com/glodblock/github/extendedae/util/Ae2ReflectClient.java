@@ -27,7 +27,7 @@ public class Ae2ReflectClient {
     static {
         try {
             cFakeForwardingServerLevel = Class
-                    .forName("appeng.client.guidebook.scene.element.FakeForwardingServerLevel")
+                    .forName("guideme.scene.element.FakeForwardingServerLevel")
                     .getDeclaredConstructor(LevelAccessor.class);
             cFakeForwardingServerLevel.setAccessible(true);
             if (GlodUtil.checkMod(ModConstants.EMI)) {

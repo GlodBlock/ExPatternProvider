@@ -20,7 +20,7 @@ public class ContainerExIOPort extends UpgradeableMenu<TileExIOPort> {
 
     public static final MenuType<ContainerExIOPort> TYPE = MenuTypeBuilder
             .create(ContainerExIOPort::new, TileExIOPort.class)
-            .build(ExtendedAE.id("ex_ioport"));
+            .buildUnregistered(ExtendedAE.id("ex_ioport"));
 
     @GuiSync(2)
     public FullnessMode fMode = FullnessMode.EMPTY;

@@ -30,7 +30,7 @@ public class ContainerExMolecularAssembler extends UpgradeableMenu<TileExMolecul
 
     public static final MenuType<ContainerExMolecularAssembler> TYPE = MenuTypeBuilder
             .create(ContainerExMolecularAssembler::new, TileExMolecularAssembler.class)
-            .build(ExtendedAE.id("ex_molecular_assembler"));
+            .buildUnregistered(ExtendedAE.id("ex_molecular_assembler"));
 
     private static final int MAX_CRAFT_PROGRESS = 100;
     private final ActionMap actions = ActionMap.create();

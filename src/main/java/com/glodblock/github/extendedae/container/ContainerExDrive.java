@@ -15,7 +15,7 @@ public class ContainerExDrive extends AEBaseMenu {
 
     public static final MenuType<ContainerExDrive> TYPE = MenuTypeBuilder
             .create(ContainerExDrive::new, TileExDrive.class)
-            .build(ExtendedAE.id("ex_drive"));
+            .buildUnregistered(ExtendedAE.id("ex_drive"));
 
     public ContainerExDrive(int id, Inventory ip, DriveBlockEntity drive) {
         super(TYPE, id, ip, drive);

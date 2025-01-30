@@ -11,7 +11,7 @@ public class ContainerExPatternTerminal extends PatternAccessTermMenu {
 
     public static final MenuType<ContainerExPatternTerminal> TYPE = MenuTypeBuilder
             .create(ContainerExPatternTerminal::new, IPatternAccessTermMenuHost.class)
-            .build(ExtendedAE.id("ex_pattern_access_terminal"));
+            .buildUnregistered(ExtendedAE.id("ex_pattern_access_terminal"));
 
     public ContainerExPatternTerminal(int id, Inventory ip, IPatternAccessTermMenuHost host) {
         super(TYPE, id, ip, host, true);

@@ -19,7 +19,7 @@ public class ContainerModExportBus extends UpgradeableMenu<PartModExportBus> imp
 
     public static final MenuType<ContainerModExportBus> TYPE = MenuTypeBuilder
             .create(ContainerModExportBus::new, PartModExportBus.class)
-            .build(ExtendedAE.id("mod_export_bus"));
+            .buildUnregistered(ExtendedAE.id("mod_export_bus"));
 
     @GuiSync(9)
     public String exp = "";

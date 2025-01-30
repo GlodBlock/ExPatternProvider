@@ -32,7 +32,7 @@ public class ContainerCrystalAssembler extends UpgradeableMenu<TileCrystalAssemb
 
     public static final MenuType<ContainerCrystalAssembler> TYPE = MenuTypeBuilder
             .create(ContainerCrystalAssembler::new, TileCrystalAssembler.class)
-            .build(ExtendedAE.id("crystal_assembler"));
+            .buildUnregistered(ExtendedAE.id("crystal_assembler"));
 
     public ContainerCrystalAssembler(int id, Inventory ip, TileCrystalAssembler host) {
         super(TYPE, id, ip, host);

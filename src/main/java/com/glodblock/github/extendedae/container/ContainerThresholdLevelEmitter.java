@@ -31,7 +31,7 @@ public class ContainerThresholdLevelEmitter extends UpgradeableMenu<PartThreshol
                 menu.upperValue = buffer.readVarLong();
                 menu.lowerValue = buffer.readVarLong();
             })
-            .build(ExtendedAE.id("threshold_level_emitter"));
+            .buildUnregistered(ExtendedAE.id("threshold_level_emitter"));
 
     @GuiSync(7)
     public long upperValue;

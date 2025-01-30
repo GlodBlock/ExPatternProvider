@@ -13,7 +13,7 @@ public class ContainerWirelessConnector extends UpgradeableMenu<TileWirelessConn
 
     public static final MenuType<ContainerWirelessConnector> TYPE = MenuTypeBuilder
             .create(ContainerWirelessConnector::new, TileWirelessConnector.class)
-            .build(ExtendedAE.id("wireless_connector"));
+            .buildUnregistered(ExtendedAE.id("wireless_connector"));
 
     private final TileWirelessConnector connector;
     @GuiSync(7)

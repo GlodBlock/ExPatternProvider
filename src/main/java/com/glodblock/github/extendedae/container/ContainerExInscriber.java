@@ -35,7 +35,7 @@ public class ContainerExInscriber extends UpgradeableMenu<TileExInscriber> imple
 
     public static final MenuType<ContainerExInscriber> TYPE = MenuTypeBuilder
             .create(ContainerExInscriber::new, TileExInscriber.class)
-            .build(ExtendedAE.id("ex_inscriber"));
+            .buildUnregistered(ExtendedAE.id("ex_inscriber"));
 
     private final Slot[] tops = new Slot[4];
     private final Slot[] middles = new Slot[4];

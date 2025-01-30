@@ -30,7 +30,7 @@ public class ContainerPreciseStorageBus extends UpgradeableMenu<PartPreciseStora
 
     public static final MenuType<ContainerPreciseStorageBus> TYPE = MenuTypeBuilder
             .create(ContainerPreciseStorageBus::new, PartPreciseStorageBus.class)
-            .build(ExtendedAE.id("precise_storage_bus"));
+            .buildUnregistered(ExtendedAE.id("precise_storage_bus"));
 
     @GuiSync(3)
     public AccessRestriction rwMode = AccessRestriction.READ_WRITE;

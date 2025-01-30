@@ -28,7 +28,7 @@ public class ContainerModStorageBus extends UpgradeableMenu<PartModStorageBus> i
 
     public static final MenuType<ContainerModStorageBus> TYPE = MenuTypeBuilder
             .create(ContainerModStorageBus::new, PartModStorageBus.class)
-            .build(ExtendedAE.id("mod_storage_bus"));
+            .buildUnregistered(ExtendedAE.id("mod_storage_bus"));
 
     @GuiSync(3)
     public AccessRestriction rwMode = AccessRestriction.READ_WRITE;

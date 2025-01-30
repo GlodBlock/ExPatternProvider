@@ -35,7 +35,7 @@ public class ContainerPatternModifier extends AEBaseMenu implements IPage, IActi
     private final ActionMap actions = ActionMap.create();
     public static final MenuType<ContainerPatternModifier> TYPE = MenuTypeBuilder
             .create(ContainerPatternModifier::new, HostPatternModifier.class)
-            .build(ExtendedAE.id("pattern_modifier"));
+            .buildUnregistered(ExtendedAE.id("pattern_modifier"));
 
     public final AppEngSlot targetSlot;
     public final AppEngSlot cloneSlot;

@@ -17,7 +17,7 @@ public class ContainerActiveFormationPlane extends UpgradeableMenu<PartActiveFor
 
     public static final MenuType<ContainerActiveFormationPlane> TYPE = MenuTypeBuilder
             .create(ContainerActiveFormationPlane::new, PartActiveFormationPlane.class)
-            .build(ExtendedAE.id("active_formation_plane"));
+            .buildUnregistered(ExtendedAE.id("active_formation_plane"));
 
     @GuiSync(7)
     public YesNo placeMode;

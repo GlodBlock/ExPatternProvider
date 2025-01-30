@@ -35,7 +35,7 @@ public class ContainerAssemblerMatrix extends AEBaseMenu implements IActionHolde
 
     public static final MenuType<ContainerAssemblerMatrix> TYPE = MenuTypeBuilder
             .create(ContainerAssemblerMatrix::new, TileAssemblerMatrixBase.class)
-            .build(ExtendedAE.id("assembler_matrix"));
+            .buildUnregistered(ExtendedAE.id("assembler_matrix"));
 
     private final ActionMap actions = ActionMap.create();
     private final List<PatternSlotTracker> trackers = new ArrayList<>();

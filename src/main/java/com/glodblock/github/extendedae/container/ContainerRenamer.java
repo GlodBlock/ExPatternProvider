@@ -25,7 +25,7 @@ public class ContainerRenamer extends AEBaseMenu implements IActionHolder {
 
     public static final MenuType<ContainerRenamer> TYPE = MenuTypeBuilder
             .create(ContainerRenamer::new, Object.class)
-            .build(ExtendedAE.id("renamer"));
+            .buildUnregistered(ExtendedAE.id("renamer"));
     private final ActionMap actions = ActionMap.create();
     private final Consumer<String> setter;
     private final Supplier<Component> getter;

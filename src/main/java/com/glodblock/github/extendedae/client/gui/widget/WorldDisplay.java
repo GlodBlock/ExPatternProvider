@@ -1,14 +1,15 @@
 package com.glodblock.github.extendedae.client.gui.widget;
 
 import appeng.client.gui.AEBaseScreen;
-import appeng.client.guidebook.document.LytRect;
-import appeng.client.guidebook.scene.CameraSettings;
-import appeng.client.guidebook.scene.GuidebookLevelRenderer;
-import appeng.client.guidebook.scene.GuidebookScene;
-import appeng.client.guidebook.scene.level.GuidebookLevel;
 import com.glodblock.github.extendedae.util.Ae2ReflectClient;
 import com.glodblock.github.glodium.util.GlodUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
+import guideme.color.LightDarkMode;
+import guideme.document.LytRect;
+import guideme.scene.CameraSettings;
+import guideme.scene.GuidebookLevelRenderer;
+import guideme.scene.GuidebookScene;
+import guideme.scene.level.GuidebookLevel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -129,7 +130,7 @@ public class WorldDisplay extends AbstractWidget {
                     (int) (viewport.height() * window.getGuiScale())
             );
             guiGraphics.enableScissor(getX(), getY(), getX() + width, getY() + height);
-            worldRender.render(this.scene.getLevel(), this.scene.getCameraSettings(), Collections.emptyList());
+            worldRender.render(this.scene.getLevel(), this.scene.getCameraSettings(), Collections.emptyList(), LightDarkMode.LIGHT_MODE);
             guiGraphics.disableScissor();
             RenderSystem.viewport(0, 0, window.getWidth(), window.getHeight());
         }

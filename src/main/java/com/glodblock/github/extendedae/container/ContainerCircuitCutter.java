@@ -25,7 +25,7 @@ public class ContainerCircuitCutter extends UpgradeableMenu<TileCircuitCutter> i
 
     public static final MenuType<ContainerCircuitCutter> TYPE = MenuTypeBuilder
             .create(ContainerCircuitCutter::new, TileCircuitCutter.class)
-            .build(ExtendedAE.id("circuit_cutter"));
+            .buildUnregistered(ExtendedAE.id("circuit_cutter"));
 
     public ContainerCircuitCutter(int id, Inventory ip, TileCircuitCutter host) {
         super(TYPE, id, ip, host);

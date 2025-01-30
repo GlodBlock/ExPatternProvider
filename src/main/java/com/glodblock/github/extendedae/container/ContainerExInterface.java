@@ -27,10 +27,10 @@ public class ContainerExInterface extends UpgradeableMenu<InterfaceLogicHost> im
 
     public static final MenuType<ContainerExInterface> TYPE = MenuTypeBuilder
             .create(ContainerExInterface::new, InterfaceLogicHost.class)
-            .build(ExtendedAE.id("ex_interface"));
+            .buildUnregistered(ExtendedAE.id("ex_interface"));
     public static final MenuType<ContainerExInterface> TYPE_OVERSIZE = MenuTypeBuilder
             .create(ContainerExInterface::new, InterfaceLogicHost.class)
-            .build(ExtendedAE.id("oversize_interface"));
+            .buildUnregistered(ExtendedAE.id("oversize_interface"));
 
     private static final int PAGE = 18;
     private static final int LINE = 9;

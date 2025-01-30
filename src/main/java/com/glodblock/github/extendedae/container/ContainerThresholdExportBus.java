@@ -22,7 +22,7 @@ public class ContainerThresholdExportBus extends UpgradeableMenu<PartThresholdEx
 
     public static final MenuType<ContainerThresholdExportBus> TYPE = MenuTypeBuilder
             .create(ContainerThresholdExportBus::new, PartThresholdExportBus.class)
-            .build(ExtendedAE.id("threshold_export_bus"));
+            .buildUnregistered(ExtendedAE.id("threshold_export_bus"));
 
     private final ActionMap actions = ActionMap.create();
     @GuiSync(7)

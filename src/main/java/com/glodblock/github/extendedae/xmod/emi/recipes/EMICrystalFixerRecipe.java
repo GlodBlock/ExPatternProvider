@@ -1,7 +1,5 @@
 package com.glodblock.github.extendedae.xmod.emi.recipes;
 
-import appeng.client.guidebook.document.LytRect;
-import appeng.client.guidebook.render.SimpleRenderContext;
 import appeng.core.AppEng;
 import com.glodblock.github.extendedae.common.EAESingletons;
 import com.glodblock.github.extendedae.recipe.CrystalFixerRecipe;
@@ -9,6 +7,8 @@ import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import guideme.document.LytRect;
+import guideme.render.SimpleRenderContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;

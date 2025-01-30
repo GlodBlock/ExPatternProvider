@@ -14,7 +14,7 @@ public class ContainerIngredientBuffer extends AEBaseMenu {
 
     public static final MenuType<ContainerIngredientBuffer> TYPE = MenuTypeBuilder
             .create(ContainerIngredientBuffer::new, TileIngredientBuffer.class)
-            .build(ExtendedAE.id("ingredient_buffer"));
+            .buildUnregistered(ExtendedAE.id("ingredient_buffer"));
 
     public ContainerIngredientBuffer(int id, Inventory playerInventory, TileIngredientBuffer host) {
         super(TYPE, id, playerInventory, host);

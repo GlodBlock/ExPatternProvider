@@ -11,7 +11,7 @@ public class ContainerExPatternProvider extends PatternProviderMenu {
 
     public static final MenuType<ContainerExPatternProvider> TYPE = MenuTypeBuilder
             .create(ContainerExPatternProvider::new, PatternProviderLogicHost.class)
-            .build(ExtendedAE.id("ex_pattern_provider"));
+            .buildUnregistered(ExtendedAE.id("ex_pattern_provider"));
 
     protected ContainerExPatternProvider(int id, Inventory playerInventory, PatternProviderLogicHost host) {
         super(TYPE, id, playerInventory, host);

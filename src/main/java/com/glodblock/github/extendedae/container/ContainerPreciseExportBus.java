@@ -14,7 +14,7 @@ public class ContainerPreciseExportBus extends UpgradeableMenu<PartPreciseExport
 
     public static final MenuType<ContainerPreciseExportBus> TYPE = MenuTypeBuilder
             .create(ContainerPreciseExportBus::new, PartPreciseExportBus.class)
-            .build(ExtendedAE.id("precise_export_bus"));
+            .buildUnregistered(ExtendedAE.id("precise_export_bus"));
 
     public ContainerPreciseExportBus(int id, Inventory ip, PartPreciseExportBus host) {
         super(TYPE, id, ip, host);

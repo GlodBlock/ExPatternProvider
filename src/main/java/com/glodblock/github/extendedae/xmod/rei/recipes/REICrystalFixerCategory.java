@@ -1,9 +1,9 @@
 package com.glodblock.github.extendedae.xmod.rei.recipes;
 
-import appeng.client.guidebook.document.LytRect;
-import appeng.client.guidebook.render.SimpleRenderContext;
 import appeng.core.AppEng;
 import com.glodblock.github.extendedae.common.EAESingletons;
+import guideme.document.LytRect;
+import guideme.render.SimpleRenderContext;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
