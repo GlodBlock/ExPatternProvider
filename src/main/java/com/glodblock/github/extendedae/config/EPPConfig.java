@@ -71,6 +71,10 @@ public class EPPConfig {
                     "appflux:flux 4"
             ), o -> true);
 
+    private static final ForgeConfigSpec.IntValue ASSEMBLER_MATRIX_SIZE = BUILDER
+            .comment("The max size of Assembler Matrix")
+            .defineInRange("device.assembler_matrix_max_size", 6, 3, 16);
+
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
     private static boolean checkRL(Object o) {
@@ -86,6 +90,7 @@ public class EPPConfig {
     public static boolean disableInscriberRender;
     private static int oversizeMultiplier;
     private static Map<ResourceLocation, Integer> customOversizeMultiplier;
+    public static int assemblerMatrixSize;
 
     public static int getOversizeMultiplier(AEKey key) {
         return customOversizeMultiplier.getOrDefault(key.getType().getId(), oversizeMultiplier);
@@ -115,6 +120,7 @@ public class EPPConfig {
                 .map(EPPConfig::parseOversizeMultiplier)
                 .filter(Objects::nonNull)
                 .forEach(p -> customOversizeMultiplier.put(p.getKey(), p.getValue()));
+        assemblerMatrixSize = ASSEMBLER_MATRIX_SIZE.get();
     }
 
     private static Pair<ResourceLocation, Integer> parseOversizeMultiplier(String s) {
