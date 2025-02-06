@@ -125,6 +125,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
     private static final Rect2i ROW_INVENTORY_BOTTOM_BBOX = new Rect2i(0, 120, GUI_WIDTH, ROW_HEIGHT); // 141
     // This is the lower part of the UI, anything below the scrollable area (incl. its bottom border)
     private static final Rect2i FOOTER_BBOX = new Rect2i(0, 138, GUI_WIDTH, GUI_FOOTER_HEIGHT); // 159
+    private static final Rect2i HIGHLIGHT_BBOX = new Rect2i(0, 237, SLOT_SIZE, SLOT_SIZE);
 
     private static final Comparator<PatternContainerGroup> GROUP_COMPARATOR = Comparator.comparing(group -> group.name().getString().toLowerCase(Locale.ROOT));
 
@@ -205,7 +206,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
         if (this.visibleRows < 2) {
             this.visibleRows = 2;
         }
-        // Render inventory in correct place.
+        // Render inventory in the correct place.
         this.imageHeight = GUI_HEADER_HEIGHT + GUI_FOOTER_HEIGHT + this.visibleRows * ROW_HEIGHT;
 
         super.init();
@@ -247,7 +248,7 @@ public class GuiExPatternTerminal<T extends ContainerExPatternTerminal> extends 
                         this.menu.slots.add(slot);
                         if (!this.searchField.getValue().isEmpty()) {
                             if (this.matchedStack.contains(slot.getItem())) {
-                                fillRect(guiGraphics, new Rect2i(slot.x, slot.y, 16, 16), 0x8A00FF00);
+                                blit(guiGraphics, slot.x - 1, slot.y - 1, HIGHLIGHT_BBOX);
                             } else if (!this.matchedProvider.contains(container)) {
                                 fillRect(guiGraphics, new Rect2i(slot.x, slot.y, 16, 16), 0x6A000000);
                             }

@@ -20,6 +20,8 @@ item_ids:
 <BlockImage id="extendedae:assembler_matrix_frame" p:formed="true" p:powered="true" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_wall" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_glass" scale="5"></BlockImage>
+</Row>
+<Row>
 <BlockImage id="extendedae:assembler_matrix_pattern" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_crafter" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_speed" scale="5"></BlockImage>
