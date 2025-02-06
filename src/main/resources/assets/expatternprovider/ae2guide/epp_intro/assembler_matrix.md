@@ -8,6 +8,7 @@ categories:
 item_ids:
 - expatternprovider:assembler_matrix_frame
 - expatternprovider:assembler_matrix_wall
+- expatternprovider:assembler_matrix_glass
 - expatternprovider:assembler_matrix_pattern
 - expatternprovider:assembler_matrix_crafter
 - expatternprovider:assembler_matrix_speed
@@ -18,6 +19,9 @@ item_ids:
 <Row>
 <BlockImage id="expatternprovider:assembler_matrix_frame" p:formed="true" p:powered="true" scale="5"></BlockImage>
 <BlockImage id="expatternprovider:assembler_matrix_wall" scale="5"></BlockImage>
+<BlockImage id="expatternprovider:assembler_matrix_glass" scale="5"></BlockImage>
+</Row>
+<Row>
 <BlockImage id="expatternprovider:assembler_matrix_pattern" scale="5"></BlockImage>
 <BlockImage id="expatternprovider:assembler_matrix_crafter" scale="5"></BlockImage>
 <BlockImage id="expatternprovider:assembler_matrix_speed" scale="5"></BlockImage>
@@ -34,7 +38,7 @@ It can run a lot crafting jobs at the same (with enough <ItemLink id="ae2:crafti
 
 It is a rectangular prism, with edge lengths between 3 and 7. 
 - Edges composed of Assembler Matrix Frame.
-- Faces composed of Assembler Matrix Wall.
+- Faces composed of Assembler Matrix Wall/Glass.
 - Interior composed of Assembler Matrix Pattern/Craft/Speed Core.
 
 A valid Assembler Matrix must contain at least one pattern core and craft core. 

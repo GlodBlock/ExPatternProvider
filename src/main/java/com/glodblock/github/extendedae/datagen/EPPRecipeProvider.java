@@ -464,6 +464,17 @@ public class EPPRecipeProvider extends RecipeProvider {
                 .save(c, ExtendedAE.id("assembler_matrix_wall"));
 
         ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, EPPItemAndBlock.ASSEMBLER_MATRIX_GLASS, 2)
+                .pattern("BIB")
+                .pattern("IGI")
+                .pattern("BIB")
+                .define('B', ConventionTags.SMART_CABLE)
+                .define('I', AEBlocks.QUARTZ_GLASS)
+                .define('G', AEItems.LOGIC_PROCESSOR)
+                .unlockedBy(C, has(AEItems.LOGIC_PROCESSOR))
+                .save(c, ExtendedAE.id("assembler_matrix_glass"));
+
+        ShapedRecipeBuilder
                 .shaped(RecipeCategory.MISC, EPPItemAndBlock.ASSEMBLER_MATRIX_SPEED, 2)
                 .pattern("BIB")
                 .pattern("BGB")

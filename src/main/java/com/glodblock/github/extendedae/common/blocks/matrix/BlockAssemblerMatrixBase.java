@@ -26,6 +26,11 @@ public abstract class BlockAssemblerMatrixBase<M extends TileAssemblerMatrixBase
     public static final BooleanProperty FORMED = BooleanProperty.create("formed");
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
 
+    public BlockAssemblerMatrixBase(Properties props) {
+        super(props);
+        this.registerDefaultState(defaultBlockState().setValue(FORMED, false).setValue(POWERED, false));
+    }
+
     public BlockAssemblerMatrixBase() {
         this.registerDefaultState(defaultBlockState().setValue(FORMED, false).setValue(POWERED, false));
     }

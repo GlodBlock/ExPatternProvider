@@ -16,6 +16,7 @@
   "block.expatternprovider.oversize_interface": "ME Oversize Interface",
   "block.expatternprovider.assembler_matrix_frame": "Assembler Matrix Frame",
   "block.expatternprovider.assembler_matrix_wall": "Assembler Matrix Wall",
+  "block.expatternprovider.assembler_matrix_glass": "Assembler Matrix Glass",
   "block.expatternprovider.assembler_matrix_pattern": "Assembler Matrix Pattern Core",
   "block.expatternprovider.assembler_matrix_crafter": "Assembler Matrix Craft Core",
   "block.expatternprovider.assembler_matrix_speed": "Assembler Matrix Speed Core",

@@ -10,6 +10,7 @@ import com.glodblock.github.extendedae.client.gui.pattern.GuiProcessingPattern;
 import com.glodblock.github.extendedae.client.gui.pattern.GuiSmithingTablePattern;
 import com.glodblock.github.extendedae.client.gui.pattern.GuiStonecuttingPattern;
 import com.glodblock.github.extendedae.client.hotkey.PatternHotKey;
+import com.glodblock.github.extendedae.client.model.AssemblerGlassModel;
 import com.glodblock.github.extendedae.client.model.ExDriveModel;
 import com.glodblock.github.extendedae.client.model.ExPlaneModel;
 import com.glodblock.github.extendedae.client.render.tesr.CanerTESR;
@@ -113,6 +114,7 @@ public class ClientRegistryHandler {
         event.register("ex_drive", new ExDriveModel.Loader());
         event.register("active_formation_plane", new ExPlaneModel.Loader(ExtendedAE.id("part/active_formation_plane")));
         event.register("active_formation_plane_on", new ExPlaneModel.Loader(ExtendedAE.id("part/active_formation_plane_on")));
+        event.register("assembler_matrix_glass", new AssemblerGlassModel.Loader());
     }
 
     @SubscribeEvent
