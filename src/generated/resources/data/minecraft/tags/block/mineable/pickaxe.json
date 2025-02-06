@@ -26,10 +26,12 @@
     "extendedae:oversize_interface",
     "extendedae:assembler_matrix_frame",
     "extendedae:assembler_matrix_wall",
+    "extendedae:assembler_matrix_glass",
     "extendedae:assembler_matrix_pattern",
     "extendedae:assembler_matrix_crafter",
     "extendedae:assembler_matrix_speed",
     "extendedae:silicon_block",
-    "extendedae:fishbig"
+    "extendedae:fishbig",
+    "extendedae:mddyue"
   ]
 }

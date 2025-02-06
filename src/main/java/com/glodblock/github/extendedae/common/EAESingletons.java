@@ -23,6 +23,7 @@ import com.glodblock.github.extendedae.common.blocks.BlockOversizeInterface;
 import com.glodblock.github.extendedae.common.blocks.BlockWirelessConnector;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixCrafter;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixFrame;
+import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixGlass;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixPattern;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixSpeed;
 import com.glodblock.github.extendedae.common.blocks.matrix.BlockAssemblerMatrixWall;
@@ -70,6 +71,7 @@ import com.glodblock.github.extendedae.common.tileentities.TileOversizeInterface
 import com.glodblock.github.extendedae.common.tileentities.TileWirelessConnector;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixCrafter;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixFrame;
+import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixGlass;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixPattern;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixSpeed;
 import com.glodblock.github.extendedae.common.tileentities.matrix.TileAssemblerMatrixWall;
@@ -168,6 +170,7 @@ public class EAESingletons {
     public static PartItem<PartOversizeInterface> OVERSIZE_INTERFACE_PART;
     public static BlockAssemblerMatrixFrame ASSEMBLER_MATRIX_FRAME;
     public static BlockAssemblerMatrixWall ASSEMBLER_MATRIX_WALL;
+    public static BlockAssemblerMatrixGlass ASSEMBLER_MATRIX_GLASS;
     public static BlockAssemblerMatrixPattern ASSEMBLER_MATRIX_PATTERN;
     public static BlockAssemblerMatrixCrafter ASSEMBLER_MATRIX_CRAFTER;
     public static BlockAssemblerMatrixSpeed ASSEMBLER_MATRIX_SPEED;
@@ -248,6 +251,7 @@ public class EAESingletons {
         OVERSIZE_INTERFACE_PART = new PartItem<>(new Item.Properties(), PartOversizeInterface.class, PartOversizeInterface::new);
         ASSEMBLER_MATRIX_FRAME = new BlockAssemblerMatrixFrame();
         ASSEMBLER_MATRIX_WALL = new BlockAssemblerMatrixWall();
+        ASSEMBLER_MATRIX_GLASS = new BlockAssemblerMatrixGlass();
         ASSEMBLER_MATRIX_PATTERN = new BlockAssemblerMatrixPattern();
         ASSEMBLER_MATRIX_CRAFTER = new BlockAssemblerMatrixCrafter();
         ASSEMBLER_MATRIX_SPEED = new BlockAssemblerMatrixSpeed();
@@ -290,6 +294,7 @@ public class EAESingletons {
         regHandler.block("oversize_interface", OVERSIZE_INTERFACE, TileOversizeInterface.class, TileOversizeInterface::new);
         regHandler.block("assembler_matrix_frame", ASSEMBLER_MATRIX_FRAME, TileAssemblerMatrixFrame.class, TileAssemblerMatrixFrame::new);
         regHandler.block("assembler_matrix_wall", ASSEMBLER_MATRIX_WALL, TileAssemblerMatrixWall.class, TileAssemblerMatrixWall::new);
+        regHandler.block("assembler_matrix_glass", ASSEMBLER_MATRIX_GLASS, TileAssemblerMatrixGlass.class, TileAssemblerMatrixGlass::new);
         regHandler.block("assembler_matrix_pattern", ASSEMBLER_MATRIX_PATTERN, TileAssemblerMatrixPattern.class, TileAssemblerMatrixPattern::new);
         regHandler.block("assembler_matrix_crafter", ASSEMBLER_MATRIX_CRAFTER, TileAssemblerMatrixCrafter.class, TileAssemblerMatrixCrafter::new);
         regHandler.block("assembler_matrix_speed", ASSEMBLER_MATRIX_SPEED, TileAssemblerMatrixSpeed.class, TileAssemblerMatrixSpeed::new);

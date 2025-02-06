@@ -8,6 +8,7 @@ categories:
 item_ids:
 - extendedae:assembler_matrix_frame
 - extendedae:assembler_matrix_wall
+- extendedae:assembler_matrix_glass
 - extendedae:assembler_matrix_pattern
 - extendedae:assembler_matrix_crafter
 - extendedae:assembler_matrix_speed
@@ -18,13 +19,14 @@ item_ids:
 <Row>
 <BlockImage id="extendedae:assembler_matrix_frame" p:formed="true" p:powered="true" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_wall" scale="5"></BlockImage>
+<BlockImage id="extendedae:assembler_matrix_glass" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_pattern" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_crafter" scale="5"></BlockImage>
 <BlockImage id="extendedae:assembler_matrix_speed" scale="5"></BlockImage>
 </Row>
 
 Assembler Matrix is a multiblock structure. It is an combination of <ItemLink id="ae2:molecular_assembler" /> and <ItemLink id="ae2:pattern_provider" />.
-It can run a lot crafting jobs at the same (with enough <ItemLink id="ae2:crafting_accelerator" />s in your ME network) and save channels for you.
+It can run a lot of crafting jobs at the same (with enough <ItemLink id="ae2:crafting_accelerator" />s in your ME network) and save channels for you.
 
 ## Structure
 
@@ -34,7 +36,7 @@ It can run a lot crafting jobs at the same (with enough <ItemLink id="ae2:crafti
 
 It is a rectangular prism, with edge lengths between 3 and 7. 
 - Edges composed of Assembler Matrix Frame.
-- Faces composed of Assembler Matrix Wall.
+- Faces composed of Assembler Matrix Wall/Glass.
 - Interior composed of Assembler Matrix Pattern/Craft/Speed Core.
 
 A valid Assembler Matrix must contain at least one pattern core and craft core. 

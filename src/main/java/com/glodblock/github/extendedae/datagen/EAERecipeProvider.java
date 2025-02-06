@@ -622,6 +622,17 @@ public class EAERecipeProvider extends RecipeProvider {
                 .define('Q', quartzBlock)
                 .unlockedBy(C, has(EAESingletons.ENTRO_INGOT))
                 .save(c, ExtendedAE.id("assembler_matrix_wall"));
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, EAESingletons.ASSEMBLER_MATRIX_GLASS, 2)
+                .pattern("BFB")
+                .pattern("IQI")
+                .pattern("BFB")
+                .define('B', AEBlocks.QUARTZ_GLASS)
+                .define('F', ConventionTags.FLUIX_CRYSTAL)
+                .define('I', EAETags.ENTRO_INGOT)
+                .define('Q', quartzBlock)
+                .unlockedBy(C, has(EAESingletons.ENTRO_INGOT))
+                .save(c, ExtendedAE.id("assembler_matrix_glass"));
         CrystalAssemblerRecipeBuilder
                 .assemble(EAESingletons.ASSEMBLER_MATRIX_CRAFTER)
                 .input(EAESingletons.ASSEMBLER_MATRIX_WALL)

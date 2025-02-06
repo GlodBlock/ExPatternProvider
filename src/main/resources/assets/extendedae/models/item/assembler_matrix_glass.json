@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "extendedae:block/assembler_matrix/glass/full"
+  }
+}
