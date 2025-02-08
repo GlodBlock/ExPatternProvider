@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "type": "mekanism:crushing",
+  "input": {
+    "count": 1,
+    "tag": "c:gems/entro"
+  },
+  "output": {
+    "count": 1,
+    "id": "extendedae:entro_dust"
+  }
+}

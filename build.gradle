@@ -119,6 +119,7 @@ dependencies {
     runtimeOnly "de.mari_023:ae2wtlib:19.2.0"
     runtimeOnly "curse.maven:jade-324717:5427817"
     runtimeOnly "curse.maven:mega-cells-622112:6005043"
+    runtimeOnly "mekanism:Mekanism:1.21.1-10.7.0.55"
     // setup Xei
     switch(use_Xei) {
         case "emi":

@@ -21,6 +21,8 @@ import com.glodblock.github.extendedae.xmod.ModConstants;
 import com.glodblock.github.glodium.util.GlodUtil;
 import gripe._90.megacells.definition.MEGABlocks;
 import gripe._90.megacells.definition.MEGAItems;
+import mekanism.api.datagen.recipe.builder.ItemStackToItemStackRecipeBuilder;
+import mekanism.api.recipes.ingredients.ItemStackIngredient;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -34,6 +36,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
@@ -41,6 +44,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -680,6 +684,9 @@ public class EAERecipeProvider extends RecipeProvider {
         if (GlodUtil.checkMod(ModConstants.APPFLUX)) {
             appflux(c);
         }
+        if (GlodUtil.checkMod(ModConstants.MEK)) {
+            mek(c);
+        }
 
     }
 
@@ -827,6 +834,11 @@ public class EAERecipeProvider extends RecipeProvider {
                 .input(AEItems.SILICON_PRINT, 4)
                 .input(ConventionTags.FLUIX_DUST, 4)
                 .save(c.withConditions(cond, mod(ModConstants.MEGA)), ExtendedAE.id("assembler/accumulation_processor"));
+    }
+
+    private void mek(@NotNull RecipeOutput c) {
+        ItemStackToItemStackRecipeBuilder.crushing(ItemStackIngredient.of(SizedIngredient.of(EAETags.ENTRO_CRYSTAL, 1)), new ItemStack(EAESingletons.ENTRO_DUST))
+                .build(c.withConditions(mod(ModConstants.MEK)), ExtendedAE.id("mek/entro_dust"));
     }
 
     private void fixer(@NotNull RecipeOutput c) {
