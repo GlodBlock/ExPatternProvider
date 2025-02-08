@@ -1,17 +1,17 @@
 {
   "type": "extendedae:crystal_fixer",
-  "chance": 7000,
+  "chance": 500,
   "fuel": {
     "ingredient": {
-      "tag": "c:dusts/ender_pearl"
+      "item": "ae2:charged_certus_quartz_crystal"
     }
   },
   "input": {
     "count": 1,
-    "id": "extendedae:entro_budding_hardly"
+    "id": "ae2:flawed_budding_quartz"
   },
   "output": {
     "count": 1,
-    "id": "extendedae:entro_budding_half"
+    "id": "ae2:flawless_budding_quartz"
   }
 }

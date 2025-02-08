@@ -841,19 +841,24 @@ public class EAERecipeProvider extends RecipeProvider {
                 .chance(0.8)
                 .save(c, ExtendedAE.id("fixer/certus_chipped"));
         CrystalFixerRecipeBuilder
+                .fixer(AEBlocks.FLAWED_BUDDING_QUARTZ.block(), AEBlocks.FLAWLESS_BUDDING_QUARTZ.block())
+                .fuel(AEItems.CERTUS_QUARTZ_CRYSTAL_CHARGED)
+                .chance(0.05)
+                .save(c, ExtendedAE.id("fixer/certus_flawed"));
+        CrystalFixerRecipeBuilder
                 .fixer(EAESingletons.HARDLY_ENTROIZED_FLUIX_BUDDING, EAESingletons.HALF_ENTROIZED_FLUIX_BUDDING)
                 .fuel(ConventionTags.ENDER_PEARL_DUST)
-                .chance(0.2)
+                .chance(0.7)
                 .save(c, ExtendedAE.id("fixer/entro_hardly"));
         CrystalFixerRecipeBuilder
                 .fixer(EAESingletons.HALF_ENTROIZED_FLUIX_BUDDING, EAESingletons.MOSTLY_ENTROIZED_FLUIX_BUDDING)
                 .fuel(ConventionTags.ENDER_PEARL_DUST)
-                .chance(0.2)
+                .chance(0.7)
                 .save(c, ExtendedAE.id("fixer/entro_half"));
         CrystalFixerRecipeBuilder
                 .fixer(EAESingletons.MOSTLY_ENTROIZED_FLUIX_BUDDING, EAESingletons.FULLY_ENTROIZED_FLUIX_BUDDING)
                 .fuel(ConventionTags.ENDER_PEARL_DUST)
-                .chance(0.2)
+                .chance(0.7)
                 .save(c, ExtendedAE.id("fixer/entro_mostly"));
     }
 
