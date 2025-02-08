@@ -34,7 +34,7 @@ public class PartFluxAccessor extends AEBasePart implements IEnergyDistributor {
     public static final IPartModel MODEL = new PartModel(RL);
     private EnergyCapCache cacheApi;
     private boolean blocked = false;
-    private final EnergyTickRecord lastTick = new EnergyTickRecord();
+    private EnergyTickRecord lastTick = new EnergyTickRecord();
     private final ICapabilityInvalidationListener listener;
     private final IActionSource source = IActionSource.ofMachine(this);
 
@@ -146,6 +146,7 @@ public class PartFluxAccessor extends AEBasePart implements IEnergyDistributor {
             if (this.getLevel() instanceof ServerLevel world) {
                 var pos = this.getBlockEntity().getBlockPos().relative(this.getSide());
                 world.registerCapabilityListener(pos, this.listener);
+                this.lastTick = new EnergyTickRecord();
             }
         }
     }
