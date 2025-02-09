@@ -33,7 +33,8 @@ public class EAEItemTagsProvider extends ItemTagsProvider {
                 .add(EAESingletons.OVERSIZE_INTERFACE_PART)
                 .add(EAESingletons.OVERSIZE_INTERFACE.asItem());
         tag(Tags.Items.DUSTS)
-                .add(EAESingletons.ENTRO_DUST);
+                .add(EAESingletons.ENTRO_DUST)
+                .add(EAESingletons.QUARTZ_BLEND);
         tag(Tags.Items.GEMS)
                 .add(EAESingletons.ENTRO_CRYSTAL);
         tag(EAETags.ENTRO_CRYSTAL)

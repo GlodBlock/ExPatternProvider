@@ -86,6 +86,8 @@ import com.glodblock.github.extendedae.container.pattern.ContainerCraftingPatter
 import com.glodblock.github.extendedae.container.pattern.ContainerProcessingPattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerSmithingTablePattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerStonecuttingPattern;
+import com.glodblock.github.extendedae.xmod.ModConstants;
+import com.glodblock.github.extendedae.xmod.framedblocks.FBClientLoad;
 import com.glodblock.github.extendedae.xmod.wt.ContainerWirelessExPAT;
 import com.glodblock.github.extendedae.xmod.wt.GuiWirelessExPAT;
 import com.glodblock.github.glodium.util.GlodUtil;
@@ -137,6 +139,9 @@ public class ClientRegistryHandler {
         event.register(ContainerCraftingPattern.TYPE, GuiCraftingPattern::new);
         event.register(ContainerStonecuttingPattern.TYPE, GuiStonecuttingPattern::new);
         event.register(ContainerSmithingTablePattern.TYPE, GuiSmithingTablePattern::new);
+        if (GlodUtil.checkMod(ModConstants.FRAMED_BLOCKS)) {
+            FBClientLoad.init(event);
+        }
     }
 
     @SubscribeEvent

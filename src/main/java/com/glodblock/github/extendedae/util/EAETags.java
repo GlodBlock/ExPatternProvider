@@ -17,6 +17,7 @@ public class EAETags {
     public static final TagKey<Item> ENTRO_BLOCK = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/entro"));
     public static final TagKey<Item> SILICON_BLOCK = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/silicon"));
     public static final TagKey<Item> OVERSIZE_INTERFACE = TagKey.create(Registries.ITEM, ExtendedAE.id("oversize_interface"));
+    public static final TagKey<Item> QUARTZ_DUST = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dusts/quartz"));
 
     public static final TagKey<Block> ENTRO_BLOCK_BLOCK = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/entro"));
     public static final TagKey<Block> SILICON_BLOCK_BLOCK = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/silicon"));

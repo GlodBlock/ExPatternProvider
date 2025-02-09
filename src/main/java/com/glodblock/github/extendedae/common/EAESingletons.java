@@ -175,6 +175,7 @@ public class EAESingletons {
     public static BlockAssemblerMatrixCrafter ASSEMBLER_MATRIX_CRAFTER;
     public static BlockAssemblerMatrixSpeed ASSEMBLER_MATRIX_SPEED;
     public static ItemVoidCell VOID_CELL;
+    public static CommonItem QUARTZ_BLEND;
 
     public static void init(EAERegistryHandler regHandler) {
         IS_PART = GlodUtil.getComponentType(Codec.BOOL, ByteBufCodecs.BOOL);
@@ -226,6 +227,7 @@ public class EAESingletons {
         EX_INSCRIBER = new BlockExInscriber();
         EX_CHARGER = new BlockExCharger();
         CRYSTAL_FIXER = new BlockCrystalFixer();
+        QUARTZ_BLEND = new CommonItem();
         TAG_STORAGE_BUS = new PartItem<>(new Item.Properties(), PartTagStorageBus.class, PartTagStorageBus::new);
         TAG_EXPORT_BUS = new PartItem<>(new Item.Properties(), PartTagExportBus.class, PartTagExportBus::new);
         THRESHOLD_LEVEL_EMITTER = new PartItem<>(new Item.Properties(), PartThresholdLevelEmitter.class, PartThresholdLevelEmitter::new);
@@ -337,6 +339,7 @@ public class EAESingletons {
         regHandler.item("threshold_export_bus", THRESHOLD_EXPORT_BUS);
         regHandler.item("oversize_interface_part", OVERSIZE_INTERFACE_PART);
         regHandler.item("void_cell", VOID_CELL);
+        regHandler.item("quartz_blend", QUARTZ_BLEND);
     }
 
 }

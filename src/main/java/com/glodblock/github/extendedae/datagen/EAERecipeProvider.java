@@ -31,6 +31,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -44,6 +45,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
@@ -673,6 +676,43 @@ public class EAERecipeProvider extends RecipeProvider {
                 .unlockedBy(C, has(AEItems.VOID_CARD))
                 .save(c, ExtendedAE.id("void_cell"));
 
+        // Quartz Blend
+        ShapelessRecipeBuilder
+                .shapeless(RecipeCategory.MISC, EAESingletons.QUARTZ_BLEND, 6)
+                .requires(ConventionTags.ALL_QUARTZ_DUST)
+                .requires(Ingredient.of(Items.COAL, Items.CHARCOAL), 2)
+                .requires(Ingredient.of(Tags.Items.SANDS), 6)
+                .unlockedBy(C, has(ConventionTags.ALL_QUARTZ_DUST))
+                .save(c, ExtendedAE.id("quartz_blend"));
+
+        ShapelessRecipeBuilder
+                .shapeless(RecipeCategory.MISC, EAESingletons.QUARTZ_BLEND, 6)
+                .requires(EAETags.QUARTZ_DUST)
+                .requires(Ingredient.of(Items.COAL, Items.CHARCOAL), 2)
+                .requires(Ingredient.of(Tags.Items.SANDS), 6)
+                .unlockedBy(C, has(EAETags.QUARTZ_DUST))
+                .save(c.withConditions(tag(EAETags.QUARTZ_DUST)), ExtendedAE.id("quartz_blend_alt"));
+
+        SimpleCookingRecipeBuilder
+                .smelting(
+                        Ingredient.of(EAESingletons.QUARTZ_BLEND),
+                        RecipeCategory.MISC,
+                        new ItemStack(AEItems.SILICON, 4),
+                        0.35F, 200
+                )
+                .unlockedBy(C, has(EAESingletons.QUARTZ_BLEND))
+                .save(c,  ExtendedAE.id("smelting/quartz_blend"));
+
+        SimpleCookingRecipeBuilder
+                .blasting(
+                        Ingredient.of(EAESingletons.QUARTZ_BLEND),
+                        RecipeCategory.MISC,
+                        new ItemStack(AEItems.SILICON, 4),
+                        0.35F, 100
+                )
+                .unlockedBy(C, has(EAESingletons.QUARTZ_BLEND))
+                .save(c,  ExtendedAE.id("blasting/quartz_blend"));
+
         transformation(c);
         circuit(c);
         assemblerCircuit(c);
@@ -839,6 +879,8 @@ public class EAERecipeProvider extends RecipeProvider {
     private void mek(@NotNull RecipeOutput c) {
         ItemStackToItemStackRecipeBuilder.crushing(ItemStackIngredient.of(SizedIngredient.of(EAETags.ENTRO_CRYSTAL, 1)), new ItemStack(EAESingletons.ENTRO_DUST))
                 .build(c.withConditions(mod(ModConstants.MEK)), ExtendedAE.id("mek/entro_dust"));
+        ItemStackToItemStackRecipeBuilder.enriching(ItemStackIngredient.of(SizedIngredient.of(EAESingletons.QUARTZ_BLEND, 1)), new ItemStack(AEItems.SILICON, 6))
+                .build(c.withConditions(mod((ModConstants.MEK))), ExtendedAE.id("mek/quartz_blend"));
     }
 
     private void fixer(@NotNull RecipeOutput c) {
@@ -876,6 +918,10 @@ public class EAERecipeProvider extends RecipeProvider {
 
     private ICondition mod(String modid) {
         return new ModLoadedCondition(modid);
+    }
+
+    private ICondition tag(TagKey<Item> tag) {
+        return new NotCondition(new TagEmptyCondition(tag));
     }
 
 }

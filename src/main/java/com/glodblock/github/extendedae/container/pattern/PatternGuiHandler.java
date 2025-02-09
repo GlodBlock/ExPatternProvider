@@ -1,12 +1,12 @@
 package com.glodblock.github.extendedae.container.pattern;
 
+import appeng.api.crafting.IPatternDetails;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceMap;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -21,12 +21,29 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 
+import java.util.IdentityHashMap;
+
 public class PatternGuiHandler {
 
     private static final Object2ObjectMap<ResourceLocation, IContainerPattern> factory = new Object2ObjectOpenHashMap<>();
     private static final Object2ReferenceMap<ResourceLocation, MenuType<?>> types = new Object2ReferenceOpenHashMap<>();
+    private static final IdentityHashMap<Class<?>, ResourceLocation> patternID = new IdentityHashMap<>();
     private static final BiMap<Integer, ResourceLocation> internal = HashBiMap.create();
     private static int IDZ = 0;
+
+    public static void addPatternHandler(Class<?> clazz, ResourceLocation id) {
+        patternID.put(clazz, id);
+    }
+
+    public static boolean open(Player player, IPatternDetails details, ItemStack pattern) {
+        var cls = details.getClass();
+        if (patternID.containsKey(cls)) {
+            open(player, patternID.get(cls), pattern);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static void open(Player player, ResourceLocation id, ItemStack pattern) {
         if (!(player instanceof ServerPlayer)) {

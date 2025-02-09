@@ -69,6 +69,7 @@
   "item.extendedae.oversize_interface_part": "ME Oversize Interface",
   "item.extendedae.entro_shard": "Entro Shard",
   "item.extendedae.void_cell": "ME Void Cell",
+  "item.extendedae.quartz_blend": "Quartz Blend",
   "infinity.tooltip": "It is an infinity source.",
   "void_warn.tooltip": "Need partitioning before using",
   "packaged_device.error.tooltip": "Invalid",

@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ],
+  "type": "mekanism:enriching",
+  "input": {
+    "count": 1,
+    "item": "extendedae:quartz_blend"
+  },
+  "output": {
+    "count": 6,
+    "id": "ae2:silicon"
+  }
+}

@@ -18,6 +18,10 @@ import appeng.blockentity.ClientTickingBlockEntity;
 import appeng.blockentity.ServerTickingBlockEntity;
 import appeng.blockentity.powersink.AEBasePoweredBlockEntity;
 import appeng.core.definitions.AEItems;
+import appeng.crafting.pattern.AECraftingPattern;
+import appeng.crafting.pattern.AEProcessingPattern;
+import appeng.crafting.pattern.AESmithingTablePattern;
+import appeng.crafting.pattern.AEStonecuttingPattern;
 import appeng.items.AEBaseItem;
 import appeng.items.tools.powered.WirelessTerminalItem;
 import appeng.items.tools.powered.powersink.PoweredItemCapabilities;
@@ -76,6 +80,7 @@ import com.glodblock.github.extendedae.container.pattern.ContainerCraftingPatter
 import com.glodblock.github.extendedae.container.pattern.ContainerProcessingPattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerSmithingTablePattern;
 import com.glodblock.github.extendedae.container.pattern.ContainerStonecuttingPattern;
+import com.glodblock.github.extendedae.container.pattern.PatternGuiHandler;
 import com.glodblock.github.extendedae.recipe.CircuitCutterRecipe;
 import com.glodblock.github.extendedae.recipe.CircuitCutterRecipeSerializer;
 import com.glodblock.github.extendedae.recipe.CrystalAssemblerRecipe;
@@ -84,6 +89,8 @@ import com.glodblock.github.extendedae.recipe.CrystalFixerRecipe;
 import com.glodblock.github.extendedae.recipe.CrystalFixerRecipeSerializer;
 import com.glodblock.github.extendedae.xmod.ModConstants;
 import com.glodblock.github.extendedae.xmod.appflux.AFCommonLoad;
+import com.glodblock.github.extendedae.xmod.framedblocks.FBCommonLoad;
+import com.glodblock.github.extendedae.xmod.framedblocks.FBRegister;
 import com.glodblock.github.extendedae.xmod.wt.ContainerWirelessExPAT;
 import com.glodblock.github.glodium.registry.RegistryHandler;
 import com.glodblock.github.glodium.util.GlodUtil;
@@ -196,6 +203,9 @@ public class EAERegistryHandler extends RegistryHandler {
         Registry.register(BuiltInRegistries.MENU, ContainerCraftingPattern.ID, ContainerCraftingPattern.TYPE);
         Registry.register(BuiltInRegistries.MENU, ContainerStonecuttingPattern.ID, ContainerStonecuttingPattern.TYPE);
         Registry.register(BuiltInRegistries.MENU, ContainerSmithingTablePattern.ID, ContainerSmithingTablePattern.TYPE);
+        if (GlodUtil.checkMod(ModConstants.FRAMED_BLOCKS)) {
+            FBRegister.register();
+        }
     }
 
     private <T extends AEBaseBlockEntity> void bindTileEntity(Class<T> clazz, AEBaseEntityBlock<T> block, BlockEntityType.BlockEntitySupplier<? extends T> supplier) {
@@ -311,6 +321,13 @@ public class EAERegistryHandler extends RegistryHandler {
 
     private void registerRandomAPI() {
         GridLinkables.register(EAESingletons.WIRELESS_EX_PAT, WirelessTerminalItem.LINKABLE_HANDLER);
+        PatternGuiHandler.addPatternHandler(AEProcessingPattern.class, ContainerProcessingPattern.ID);
+        PatternGuiHandler.addPatternHandler(AECraftingPattern.class, ContainerCraftingPattern.ID);
+        PatternGuiHandler.addPatternHandler(AEStonecuttingPattern.class, ContainerStonecuttingPattern.ID);
+        PatternGuiHandler.addPatternHandler(AESmithingTablePattern.class, ContainerSmithingTablePattern.ID);
+        if (GlodUtil.checkMod(ModConstants.FRAMED_BLOCKS)) {
+            FBCommonLoad.init();
+        }
     }
 
     public void registerTab(Registry<CreativeModeTab> registry) {

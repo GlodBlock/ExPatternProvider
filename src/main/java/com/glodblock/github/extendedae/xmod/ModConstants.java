@@ -17,5 +17,6 @@ public final class ModConstants {
     public static final String DARK_MODE = "darkmodeeverywhere";
     public static final String APPMEK = "appmek";
     public static final String MEK = "mekanism";
+    public static final String FRAMED_BLOCKS = "framedblocks";
 
 }
